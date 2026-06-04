@@ -1769,7 +1769,7 @@ function saveResultImage() {
   drawWrappedText(ctx, "另一条路也没绕开你，只是换了个场景继续报错。", margin + 12, y, width - margin * 2 - 24, 34);
   ctx.fillStyle = "rgba(23,23,20,.48)";
   ctx.font = "800 20px sans-serif";
-  ctx.fillText("june-mengjun.github.io", margin + 12, height - 76);
+  ctx.fillText(location.host || "parallelife.origo-cn.com", margin + 12, height - 76);
 
   const link = document.createElement("a");
   link.download = "平行人生档案.png";
@@ -1798,7 +1798,7 @@ function copyText(text) {
 }
 
 async function shareResult() {
-  const url = "https://june-mengjun.github.io/";
+  const url = location.origin || "https://parallelife.origo-cn.com";
   const text = `我的平行人生档案：${state.result.speciesName}\n${state.result.roast}\n${url}`;
   const button = document.querySelector("#shareBtn");
   const oldText = button.textContent;
