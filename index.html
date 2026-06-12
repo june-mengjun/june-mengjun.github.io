@@ -1,0 +1,3298 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>平行人生档案</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2NTGGJME5Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-2NTGGJME5Z");
+    </script>
+    <style>
+:root {
+  --bg: #0f1110;
+  --paper: #ece3d1;
+  --paper-dark: #d8c8a6;
+  --ink: #171714;
+  --muted: #7c766a;
+  --green: #b5ff62;
+  --cyan: #6ee7ff;
+  --red: #ff5a4d;
+  --line: rgba(236, 227, 209, 0.18);
+  --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(181, 255, 98, 0.14), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(110, 231, 255, 0.1), transparent 28%),
+    linear-gradient(180deg, #171917, #090a09 68%);
+  color: var(--paper);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 28px 18px 32px;
+  position: relative;
+}
+
+.screen-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro-screen {
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 42px 42px, 42px 42px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 88%);
+}
+
+.terminal-bar,
+.progress-row,
+.result-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.terminal-bar {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 18px;
+}
+
+.hero-mark {
+  position: relative;
+  width: min(72vw, 330px);
+  aspect-ratio: 1;
+  margin: 48px auto 12px;
+  display: grid;
+  place-items: center;
+}
+
+.orbit,
+.orbit-core {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.orbit-one {
+  width: 76%;
+  height: 76%;
+  border: 1px dashed rgba(181, 255, 98, 0.5);
+  animation: spin 16s linear infinite;
+}
+
+.orbit-two {
+  width: 52%;
+  height: 52%;
+  border: 1px solid rgba(110, 231, 255, 0.42);
+  animation: spin 11s linear reverse infinite;
+}
+
+.orbit-core {
+  width: 22%;
+  height: 22%;
+  background: var(--green);
+  box-shadow: 0 0 42px rgba(181, 255, 98, 0.8);
+}
+
+.archive-stamp {
+  position: absolute;
+  z-index: 2;
+  transform: rotate(-10deg);
+  border: 2px solid var(--red);
+  color: var(--red);
+  padding: 9px 14px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  background: rgba(15, 17, 16, 0.82);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--green);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(42px, 13vw, 70px);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-size: 30px;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: rgba(236, 227, 209, 0.74);
+  font-size: 17px;
+}
+
+.system-note {
+  margin: 10px 0 4px;
+  color: rgba(236, 227, 209, 0.78);
+  line-height: 1.75;
+}
+
+.primary-btn,
+.secondary-btn {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 6px;
+  font-weight: 900;
+}
+
+.primary-btn {
+  background: var(--green);
+  color: #10120f;
+  box-shadow: 0 12px 34px rgba(181, 255, 98, 0.18);
+}
+
+.secondary-btn {
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  border: 1px solid rgba(236, 227, 209, 0.22);
+}
+
+.screen-head {
+  padding-top: 16px;
+  margin-bottom: 18px;
+}
+
+.screen-head p:not(.eyebrow) {
+  color: rgba(236, 227, 209, 0.72);
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.event-card,
+.option-btn {
+  text-align: left;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.event-card {
+  min-height: 82px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.event-card span {
+  color: var(--green);
+  font-size: 11px;
+}
+
+.event-card strong {
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.event-card:active,
+.option-btn:active {
+  transform: scale(0.98);
+}
+
+.event-card.selected,
+.option-btn.selected {
+  border-color: var(--green);
+  background: rgba(181, 255, 98, 0.16);
+}
+
+.microcopy {
+  margin: 18px 0 0;
+  color: rgba(236, 227, 209, 0.55);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.progress-row {
+  margin-bottom: 10px;
+}
+
+.progress-track,
+.loading-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(236, 227, 209, 0.12);
+  overflow: hidden;
+}
+
+#progressFill,
+#loadingFill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--green), var(--cyan));
+  transition: width 260ms ease;
+}
+
+.question-panel {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(236, 227, 209, 0.1), rgba(236, 227, 209, 0.05)),
+    rgba(15, 17, 16, 0.72);
+  box-shadow: var(--shadow);
+}
+
+#questionText {
+  min-height: 72px;
+}
+
+.option-list {
+  display: grid;
+  gap: 10px;
+}
+
+.option-btn {
+  min-height: 58px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.option-btn span {
+  color: var(--green);
+  font-size: 13px;
+  min-width: 18px;
+}
+
+.input-wrap {
+  display: grid;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.input-wrap span {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.input-wrap input {
+  width: 100%;
+  min-height: 62px;
+  border-radius: 8px;
+  border: 1px solid rgba(236, 227, 209, 0.22);
+  background: rgba(236, 227, 209, 0.09);
+  color: var(--paper);
+  padding: 0 16px;
+  outline: none;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.input-wrap input:focus {
+  border-color: var(--green);
+}
+
+[data-screen="open"] .primary-btn {
+  margin-top: auto;
+}
+
+[data-screen="loading"] {
+  justify-content: center;
+}
+
+.loader-shell {
+  width: 100%;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
+.loader-ring {
+  width: 136px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(236, 227, 209, 0.2);
+  border-top-color: var(--green);
+  animation: spin 1.2s linear infinite;
+}
+
+.loader-shell h2 {
+  max-width: 320px;
+  margin-bottom: 0;
+}
+
+.loader-shell p:not(.eyebrow) {
+  min-height: 24px;
+  color: rgba(236, 227, 209, 0.72);
+}
+
+#loadingPercent {
+  color: var(--green);
+  font-weight: 900;
+}
+
+.result-screen {
+  gap: 14px;
+}
+
+.result-card {
+  color: var(--ink);
+  background:
+    linear-gradient(transparent 0 95%, rgba(23, 23, 20, 0.05) 96%),
+    var(--paper);
+  background-size: 100% 31px, auto;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.result-card::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(23, 23, 20, 0.16);
+  pointer-events: none;
+}
+
+.result-top {
+  color: rgba(23, 23, 20, 0.58);
+  margin-bottom: 16px;
+}
+
+.result-card h2 {
+  font-size: 34px;
+  margin-bottom: 16px;
+}
+
+.record-line,
+.route-reason,
+.route-card,
+.species-block,
+.identity-grid > div,
+blockquote {
+  border: 1px solid rgba(23, 23, 20, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.record-line {
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.route-card {
+  position: relative;
+  margin-bottom: 12px;
+  padding: 14px 128px 14px 14px;
+  display: grid;
+  gap: 6px;
+  overflow: hidden;
+  background: #171714;
+  color: var(--paper);
+}
+
+.route-card::after {
+  content: "ROUTE";
+  position: absolute;
+  right: 12px;
+  bottom: -10px;
+  color: rgba(181, 255, 98, 0.09);
+  font-size: 44px;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.record-line span,
+.route-reason span,
+.route-card span,
+.species-block p,
+.identity-grid span {
+  color: rgba(23, 23, 20, 0.55);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.route-card span {
+  color: var(--acid);
+}
+
+.route-card strong {
+  position: relative;
+  z-index: 1;
+  color: var(--acid);
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.route-card em {
+  position: relative;
+  z-index: 1;
+  color: rgba(236, 227, 209, 0.72);
+  font-style: normal;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.route-probability {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  top: 50%;
+  width: 96px;
+  min-height: 72px;
+  transform: translateY(-50%);
+  border: 2px solid #ff5a4d;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+  background: rgba(255, 90, 77, 0.1);
+  box-shadow: 0 0 0 1px rgba(255, 90, 77, 0.18) inset;
+}
+
+.route-probability small {
+  color: #ff5a4d;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+}
+
+.route-probability b {
+  color: #fff3df;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.record-line strong {
+  font-size: 17px;
+}
+
+.route-reason {
+  margin-top: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.route-reason strong {
+  font-size: 16px;
+  line-height: 1.48;
+}
+
+.species-block {
+  margin-top: 12px;
+  padding: 14px;
+}
+
+.species-block h3 {
+  margin: 4px 0;
+  font-size: 28px;
+}
+
+.species-block span {
+  color: rgba(23, 23, 20, 0.72);
+  line-height: 1.55;
+}
+
+.identity-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.identity-grid > div,
+blockquote {
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.identity-grid strong {
+  line-height: 1.42;
+}
+
+.chart-list {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 38px;
+  gap: 9px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.chart-bar {
+  height: 9px;
+  border-radius: 99px;
+  background: rgba(23, 23, 20, 0.12);
+  overflow: hidden;
+}
+
+.chart-bar i {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+}
+
+blockquote {
+  margin: 16px 0 0;
+  padding: 14px;
+  display: block;
+  font-size: 21px;
+  line-height: 1.32;
+  font-weight: 950;
+}
+
+.result-footer {
+  margin: 14px 0 0;
+  color: rgba(23, 23, 20, 0.66);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.result-actions {
+  display: grid;
+  gap: 10px;
+}
+
+#shareCanvas {
+  display: none;
+}
+
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(9, 10, 9, 0.74);
+  backdrop-filter: blur(10px);
+}
+
+.feedback-overlay.open {
+  display: flex;
+}
+
+.feedback-panel {
+  position: relative;
+  width: min(100%, 430px);
+  max-height: min(88vh, 760px);
+  overflow: auto;
+  padding: 20px;
+  border: 2px solid rgba(181, 255, 98, 0.72);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(236, 227, 209, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(236, 227, 209, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #171714, #0b0c0b);
+  background-size: 18px 18px, 18px 18px, auto;
+  box-shadow: 0 26px 90px rgba(0, 0, 0, 0.64);
+}
+
+.feedback-panel::before {
+  content: "USER REPORT / PRODUCT BUG";
+  position: absolute;
+  right: 16px;
+  top: 18px;
+  color: rgba(255, 90, 77, 0.7);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.feedback-close {
+  position: absolute;
+  right: 12px;
+  top: 42px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(236, 227, 209, 0.22);
+  border-radius: 4px;
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.feedback-panel h2 {
+  margin: 8px 44px 8px 0;
+  color: var(--paper);
+  font-size: 28px;
+  line-height: 1.08;
+}
+
+.feedback-intro {
+  margin: 0 0 16px;
+  color: rgba(236, 227, 209, 0.66);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.feedback-field {
+  display: grid;
+  gap: 9px;
+  margin-top: 14px;
+}
+
+.feedback-field > span {
+  color: rgba(236, 227, 209, 0.72);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.feedback-scale {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+}
+
+.feedback-scale button,
+.feedback-chips button {
+  min-height: 40px;
+  border: 1px solid rgba(236, 227, 209, 0.16);
+  border-radius: 5px;
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  font-weight: 900;
+}
+
+.feedback-scale button.selected,
+.feedback-chips button.selected {
+  border-color: var(--green);
+  background: var(--green);
+  color: #10120f;
+  box-shadow: 0 0 26px rgba(181, 255, 98, 0.2);
+}
+
+.feedback-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feedback-chips button {
+  min-height: 38px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.feedback-panel textarea {
+  min-height: 74px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid rgba(236, 227, 209, 0.18);
+  border-radius: 6px;
+  outline: 0;
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.feedback-panel textarea::placeholder {
+  color: rgba(236, 227, 209, 0.4);
+}
+
+.feedback-inline-note {
+  display: none;
+}
+
+.feedback-inline-note.show {
+  display: block;
+  margin-top: 2px;
+}
+
+#feedbackSubmit {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.feedback-done {
+  display: none;
+  margin: 10px 0 0;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.feedback-done.show {
+  display: block;
+}
+
+.feedback-screen {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(181, 255, 98, 0.14), transparent 28%),
+    radial-gradient(circle at 86% 18%, rgba(255, 90, 77, 0.16), transparent 25%),
+    linear-gradient(180deg, rgba(236, 227, 209, 0.04), transparent);
+}
+
+.feedback-file {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border: 2px solid rgba(181, 255, 98, 0.72);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(236, 227, 209, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(236, 227, 209, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #171714, #0b0c0b);
+  background-size: 18px 18px, 18px 18px, auto;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+
+.feedback-file::after {
+  content: "DATA WILL BE ROUTED LATER";
+  position: absolute;
+  right: -32px;
+  top: 92px;
+  transform: rotate(90deg);
+  color: rgba(181, 255, 98, 0.22);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+}
+
+.feedback-scanline {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 12px,
+    rgba(181, 255, 98, 0.035) 12px,
+    rgba(181, 255, 98, 0.035) 13px
+  );
+}
+
+.feedback-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(236, 227, 209, 0.24);
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.feedback-file h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--paper);
+  font-size: 38px;
+  line-height: 1;
+}
+
+.feedback-lead {
+  position: relative;
+  z-index: 1;
+  margin: -2px 0 4px;
+  color: rgba(236, 227, 209, 0.68);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.feedback-card-block {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 9px;
+  padding: 13px;
+  border: 1px solid rgba(236, 227, 209, 0.14);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, rgba(181, 255, 98, 0.08), transparent 30%),
+    rgba(236, 227, 209, 0.055);
+}
+
+.feedback-card-block > span {
+  color: rgba(255, 90, 77, 0.78);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.feedback-card-block > strong {
+  color: var(--paper);
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.feedback-stars {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+}
+
+.feedback-stars button,
+.feedback-picks button {
+  min-height: 42px;
+  border: 1px solid rgba(236, 227, 209, 0.18);
+  border-radius: 5px;
+  background: rgba(236, 227, 209, 0.08);
+  color: var(--paper);
+  font-weight: 950;
+}
+
+.feedback-stars button {
+  font-size: 18px;
+}
+
+.feedback-stars button.selected,
+.feedback-picks button.selected {
+  border-color: var(--green);
+  background: var(--green);
+  color: #10120f;
+  box-shadow: 0 0 24px rgba(181, 255, 98, 0.22);
+}
+
+.feedback-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feedback-picks button {
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.feedback-card-block textarea {
+  min-height: 86px;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid rgba(236, 227, 209, 0.18);
+  border-radius: 6px;
+  outline: 0;
+  background: rgba(9, 10, 9, 0.5);
+  color: var(--paper);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.feedback-card-block textarea::placeholder {
+  color: rgba(236, 227, 209, 0.36);
+}
+
+.feedback-page-done {
+  display: none;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 11px;
+  border-left: 4px solid var(--green);
+  background: rgba(181, 255, 98, 0.1);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.feedback-page-done.show {
+  display: block;
+}
+
+.feedback-debug {
+  display: none;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 10px;
+  border: 1px dashed rgba(236, 227, 209, 0.18);
+  border-radius: 6px;
+  background: rgba(9, 10, 9, 0.72);
+  color: rgba(236, 227, 209, 0.64);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.feedback-debug.show {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .screen {
+    max-width: 430px;
+    margin: 0 auto;
+  }
+
+  .feedback-overlay {
+    align-items: center;
+  }
+}
+
+/* Visual upgrade: quiz as broken timeline terminal */
+.screen[data-screen="quiz"] {
+  justify-content: flex-start;
+  background:
+    linear-gradient(180deg, rgba(181, 255, 98, 0.08), transparent 24%),
+    radial-gradient(circle at 100% 8%, rgba(255, 90, 77, 0.14), transparent 26%),
+    radial-gradient(circle at 0% 72%, rgba(110, 231, 255, 0.12), transparent 32%);
+}
+
+.screen[data-screen="quiz"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(236, 227, 209, 0.035) 0,
+      rgba(236, 227, 209, 0.035) 1px,
+      transparent 1px,
+      transparent 10px
+    );
+  mix-blend-mode: screen;
+}
+
+.screen[data-screen="quiz"]::after {
+  content: "TIMELINE INPUT / DO NOT TRUST THIS SCREEN";
+  position: absolute;
+  right: -72px;
+  top: 144px;
+  width: 260px;
+  transform: rotate(90deg);
+  color: rgba(181, 255, 98, 0.34);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+}
+
+.screen[data-screen="quiz"] .progress-row {
+  position: relative;
+  z-index: 2;
+  padding: 9px 10px;
+  border: 1px solid rgba(181, 255, 98, 0.22);
+  background: rgba(9, 10, 9, 0.66);
+  border-radius: 6px;
+}
+
+.screen[data-screen="quiz"] .progress-track {
+  position: relative;
+  z-index: 2;
+  height: 12px;
+  border: 1px solid rgba(236, 227, 209, 0.14);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(236, 227, 209, 0.13) 0,
+      rgba(236, 227, 209, 0.13) 1px,
+      transparent 1px,
+      transparent 18px
+    ),
+    rgba(9, 10, 9, 0.8);
+}
+
+.question-ghost {
+  position: absolute;
+  top: 116px;
+  left: 12px;
+  z-index: 0;
+  color: rgba(236, 227, 209, 0.05);
+  font-size: 116px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.question-panel {
+  position: relative;
+  z-index: 1;
+  margin-top: 38px;
+  padding: 20px;
+  border: 1px solid rgba(181, 255, 98, 0.38);
+  background:
+    linear-gradient(135deg, rgba(181, 255, 98, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(236, 227, 209, 0.1), rgba(236, 227, 209, 0.035)),
+    rgba(9, 10, 9, 0.86);
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.56),
+    inset 0 0 0 1px rgba(236, 227, 209, 0.06);
+  overflow: hidden;
+}
+
+.question-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green), var(--cyan), var(--red));
+}
+
+.question-panel::after {
+  content: "ERROR OK";
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  color: rgba(255, 90, 77, 0.72);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.14em;
+}
+
+#questionText {
+  min-height: 92px;
+  display: flex;
+  align-items: center;
+  margin: 8px 0 18px;
+  color: #fbf4e3;
+  font-size: 32px;
+  line-height: 1.08;
+}
+
+.option-list {
+  gap: 9px;
+}
+
+.option-btn {
+  position: relative;
+  min-height: 62px;
+  padding: 13px 42px 13px 12px;
+  border-color: rgba(236, 227, 209, 0.16);
+  background:
+    linear-gradient(90deg, rgba(236, 227, 209, 0.11), rgba(236, 227, 209, 0.045)),
+    rgba(15, 17, 16, 0.9);
+  color: #fbf4e3;
+}
+
+.option-btn::after {
+  content: "↵";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(181, 255, 98, 0.52);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.option-btn span {
+  min-width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  border: 1px solid rgba(181, 255, 98, 0.54);
+  background: rgba(181, 255, 98, 0.1);
+  color: var(--green);
+  font-size: 14px;
+}
+
+.option-btn.selected {
+  color: #10120f;
+  background: var(--green);
+  box-shadow: 0 0 28px rgba(181, 255, 98, 0.24);
+}
+
+.option-btn.selected span {
+  color: #10120f;
+  border-color: rgba(16, 18, 15, 0.28);
+  background: rgba(16, 18, 15, 0.08);
+}
+
+.screen[data-screen="quiz"] .microcopy {
+  position: relative;
+  z-index: 2;
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 3px solid rgba(255, 90, 77, 0.7);
+  background: rgba(9, 10, 9, 0.48);
+  color: rgba(236, 227, 209, 0.62);
+}
+
+/* Visual upgrade: result as screenshot-ready dossier poster */
+.result-screen {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(181, 255, 98, 0.12), transparent 28%),
+    radial-gradient(circle at 95% 18%, rgba(255, 90, 77, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(236, 227, 209, 0.04), transparent);
+  align-items: center;
+  padding-inline: 10px;
+}
+
+.result-card {
+  width: min(100%, 430px);
+  padding: 20px;
+  font-family:
+    "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei",
+    system-ui, sans-serif;
+  background:
+    linear-gradient(90deg, rgba(23, 23, 20, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(23, 23, 20, 0.035) 1px, transparent 1px),
+    linear-gradient(180deg, #f1e8d6, #dfd0ad);
+  background-size: 22px 22px, 22px 22px, auto;
+  border: 2px solid #141410;
+  border-radius: 10px;
+}
+
+.result-card::before {
+  inset: 10px;
+  border: 1px dashed rgba(23, 23, 20, 0.28);
+}
+
+.result-stamp {
+  position: absolute;
+  right: 18px;
+  top: 58px;
+  z-index: 2;
+  transform: rotate(7deg);
+  border: 2px solid var(--red);
+  color: var(--red);
+  padding: 6px 9px;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  background: rgba(241, 232, 214, 0.72);
+}
+
+.barcode {
+  width: 154px;
+  height: 38px;
+  margin: 0 0 18px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #171714 0 2px,
+      transparent 2px 5px,
+      #171714 5px 8px,
+      transparent 8px 13px
+    );
+  opacity: 0.8;
+}
+
+.result-card h2 {
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 5px solid #171714;
+  font-size: clamp(38px, 11vw, 50px);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.record-line {
+  border: 0;
+  border-left: 5px solid var(--red);
+  background: rgba(23, 23, 20, 0.08);
+  padding: 14px 14px 16px;
+}
+
+.record-line strong {
+  font-size: 18px;
+  line-height: 1.52;
+  font-weight: 900;
+}
+
+.route-card {
+  min-height: 150px;
+  margin-bottom: 14px;
+  padding: 18px 16px;
+  grid-template-columns: minmax(0, 1fr) 92px;
+  grid-template-rows: auto auto 1fr;
+  align-items: center;
+  column-gap: 14px;
+  row-gap: 5px;
+}
+
+.route-card::after {
+  right: -10px;
+  bottom: -12px;
+  font-size: 54px;
+}
+
+.route-card span,
+.route-card strong,
+.route-card em {
+  grid-column: 1;
+}
+
+.route-card span {
+  color: var(--green);
+  font-size: 12px;
+}
+
+.route-card strong {
+  font-size: clamp(31px, 9vw, 42px);
+  line-height: 1.04;
+  color: var(--paper);
+  letter-spacing: 0;
+}
+
+.route-card em {
+  max-width: 100%;
+  color: rgba(236, 227, 209, 0.68);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 800;
+}
+
+.route-probability {
+  position: relative;
+  top: auto;
+  right: auto;
+  grid-column: 2;
+  grid-row: 1 / 4;
+  align-self: center;
+  justify-self: end;
+  width: 88px;
+  min-height: 78px;
+  transform: none;
+  background: rgba(255, 90, 77, 0.08);
+}
+
+.route-probability small {
+  font-size: 11px;
+}
+
+.route-probability b {
+  font-size: 32px;
+}
+
+.route-reason {
+  border: 1px dashed rgba(23, 23, 20, 0.32);
+  background:
+    linear-gradient(90deg, rgba(181, 255, 98, 0.16), transparent 58%),
+    rgba(255, 255, 255, 0.16);
+  padding: 14px;
+}
+
+.route-reason span {
+  color: var(--red);
+}
+
+.route-reason strong {
+  font-size: 16px;
+  line-height: 1.58;
+  font-weight: 900;
+}
+
+.species-block {
+  position: relative;
+  border: 0;
+  background: #171714;
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.species-block::after {
+  content: "SPECIES";
+  position: absolute;
+  right: -8px;
+  bottom: -4px;
+  color: rgba(236, 227, 209, 0.08);
+  font-size: 44px;
+  font-weight: 950;
+  letter-spacing: 0;
+}
+
+.species-block p {
+  color: var(--green);
+}
+
+.species-block h3 {
+  position: relative;
+  z-index: 1;
+  color: var(--green);
+  font-size: clamp(34px, 10vw, 44px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.species-block span {
+  position: relative;
+  z-index: 1;
+  color: rgba(236, 227, 209, 0.72);
+  font-size: 16px;
+  line-height: 1.48;
+}
+
+.identity-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.identity-grid > div {
+  border: 1px solid rgba(23, 23, 20, 0.28);
+  background: rgba(255, 255, 255, 0.2);
+  min-height: 112px;
+  padding: 14px;
+}
+
+.identity-grid strong {
+  font-size: 16px;
+  line-height: 1.42;
+}
+
+.chart-list {
+  padding: 14px;
+  border: 1px solid rgba(23, 23, 20, 0.18);
+  background: rgba(255, 255, 255, 0.22);
+  gap: 10px;
+}
+
+.chart-row {
+  grid-template-columns: 70px minmax(0, 1fr) 34px;
+  gap: 10px;
+  min-height: 28px;
+  font-size: 14px;
+}
+
+.chart-bar {
+  height: 12px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(23, 23, 20, 0.14) 0,
+      rgba(23, 23, 20, 0.14) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    rgba(23, 23, 20, 0.1);
+}
+
+.chart-bar i {
+  background: linear-gradient(90deg, #171714, #ff5a4d);
+}
+
+blockquote {
+  margin-top: 14px;
+  padding: 16px 16px 16px 20px;
+  border: 0;
+  background: #171714;
+  color: var(--paper);
+  box-shadow: inset 5px 0 0 var(--green);
+  font-size: 20px;
+  line-height: 1.42;
+  letter-spacing: 0;
+}
+
+.result-footer {
+  padding-top: 10px;
+  border-top: 1px dashed rgba(23, 23, 20, 0.3);
+  font-weight: 800;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.result-actions {
+  width: min(100%, 430px);
+}
+
+</style>
+  </head>
+  <body>
+    <main id="app" class="app">
+      <section class="screen screen-active intro-screen" data-screen="intro">
+        <div class="noise"></div>
+        <div class="terminal-bar">
+          <span>PL-404</span>
+          <span>TIME-LINE LEAK</span>
+        </div>
+        <div class="hero-mark">
+          <div class="archive-stamp">档案异常</div>
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit-core"></div>
+        </div>
+        <p class="eyebrow">Parallel Life Archive</p>
+        <h1>你的平行人生档案已生成 0%</h1>
+        <p class="subtitle">正在检索你没过上的那种人生。</p>
+        <p class="system-note">
+          本系统不主动、不拒绝、不负责。<br />
+          当前人生如有不适，请联系平行宇宙。
+        </p>
+        <button class="primary-btn" id="startBtn">开始串线</button>
+      </section>
+
+      <section class="screen" data-screen="cards">
+        <div class="screen-head">
+          <p class="eyebrow">Step 01</p>
+          <h2>先抽一张未发生事件卡</h2>
+          <p>选一个你最想让系统重新加载的节点。</p>
+        </div>
+        <div class="card-grid" id="regretGrid"></div>
+        <p class="microcopy">不用认真，命运当年也没多认真。</p>
+      </section>
+
+      <section class="screen" data-screen="quiz">
+        <div class="progress-row">
+          <span id="questionProgress">串线进度 01 / 10</span>
+          <span id="miniStatus">SYSTEM ONLINE</span>
+        </div>
+        <div class="progress-track">
+          <div id="progressFill"></div>
+        </div>
+        <div class="question-ghost" id="questionGhost">Q01</div>
+        <article class="question-panel">
+          <p class="eyebrow" id="questionIndex">Question 01</p>
+          <h2 id="questionText"></h2>
+          <div class="option-list" id="optionList"></div>
+        </article>
+        <p class="microcopy" id="quizHint">请勿过度分析，系统会自己乱算。</p>
+      </section>
+
+      <section class="screen" data-screen="open">
+        <div class="screen-head">
+          <p class="eyebrow">Final Input</p>
+          <h2>如果当年的我再勇敢一点，我会______</h2>
+          <p>给另一条时间线一个启动关键词。</p>
+        </div>
+        <label class="input-wrap">
+          <span>未发生记录</span>
+          <input
+            id="braveInput"
+            maxlength="20"
+            placeholder="去北京 / 表白 / 辞职 / 开店 / 学医 / 别回头"
+          />
+        </label>
+        <p class="microcopy">请勿填写“拯救世界”，本系统预算有限。</p>
+        <button class="primary-btn" id="submitInputBtn">提交未发生记录</button>
+      </section>
+
+      <section class="screen" data-screen="loading">
+        <div class="loader-shell">
+          <div class="loader-ring"></div>
+          <p class="eyebrow">Generating</p>
+          <h2>正在生成错误但合理的你</h2>
+          <p id="loadingLine">正在调取未发生记录</p>
+          <div class="loading-track">
+            <div id="loadingFill"></div>
+          </div>
+          <span id="loadingPercent">0%</span>
+        </div>
+      </section>
+
+      <section class="screen result-screen" data-screen="result">
+        <div class="result-card" id="resultCard">
+          <div class="result-stamp">异常副本</div>
+          <div class="result-top">
+            <span>PL-404</span>
+            <span id="resultCode">当前人生未找到说明书</span>
+          </div>
+          <div class="barcode" aria-hidden="true"></div>
+          <h2>平行人生档案</h2>
+          <div class="route-card">
+            <span>平行路线</span>
+            <strong id="routeNameText"></strong>
+            <em id="routeHintText"></em>
+            <div class="route-probability">
+              <small>发生率</small>
+              <b id="routeProbabilityText"></b>
+            </div>
+          </div>
+          <div class="record-line">
+            <span>未发生记录</span>
+            <strong id="recordText"></strong>
+          </div>
+          <div class="route-reason">
+            <span>路线偏移原因</span>
+            <strong id="routeReasonText"></strong>
+          </div>
+          <div class="species-block">
+            <p>人生物种</p>
+            <h3 id="speciesName"></h3>
+            <span id="speciesDesc"></span>
+          </div>
+          <div class="identity-grid">
+            <div>
+              <span>平行身份</span>
+              <strong id="identityText"></strong>
+            </div>
+            <div>
+              <span>当前状态</span>
+              <strong id="stateText"></strong>
+            </div>
+          </div>
+          <div class="chart-list" id="chartList"></div>
+          <blockquote id="roastText"></blockquote>
+          <p class="result-footer">另一条路也没绕开你，只是换了个场景继续报错。</p>
+        </div>
+        <div class="result-actions">
+          <button class="primary-btn" id="saveBtn">保存这份离谱档案</button>
+          <button class="secondary-btn" id="feedbackBtn">快进来聊聊</button>
+          <button class="secondary-btn" id="restartBtn">再开一条时间线</button>
+        </div>
+        <canvas id="shareCanvas" width="900" height="2140" aria-hidden="true"></canvas>
+      </section>
+
+      <section class="screen feedback-screen" data-screen="feedback">
+        <div class="feedback-file">
+          <div class="feedback-scanline" aria-hidden="true"></div>
+          <div class="feedback-top">
+            <span>PL-FEEDBACK</span>
+            <span>USER SIGNAL</span>
+          </div>
+          <p class="eyebrow">异常样本回收站</p>
+          <h2>快进来聊聊</h2>
+          <p class="feedback-lead">
+            这里不做满意度调查。这里只收集：哪里有点东西，哪里还没东西。
+          </p>
+
+          <div class="feedback-card-block">
+            <span>01 / HIT RATE</span>
+            <strong>这份档案有多像你？</strong>
+            <div class="feedback-picks single" data-page-picks="match">
+              <button type="button" data-value="too_real">太像了，先别说了</button>
+              <button type="button" data-value="close">有点像，但还没戳穿</button>
+              <button type="button" data-value="not_me">不像，我的人生比这离谱</button>
+              <button type="button" data-value="parallel_me">像另一个我，问题不大</button>
+            </div>
+          </div>
+
+          <div class="feedback-card-block">
+            <span>02 / IDEA</span>
+            <strong>这个 idea 打几分？</strong>
+            <div class="feedback-stars" data-page-score="idea">
+              <button type="button" data-value="1">1</button>
+              <button type="button" data-value="2">2</button>
+              <button type="button" data-value="3">3</button>
+              <button type="button" data-value="4">4</button>
+              <button type="button" data-value="5">5</button>
+            </div>
+          </div>
+
+          <div class="feedback-card-block">
+            <span>03 / VERSION</span>
+            <strong>当前实现打几分？</strong>
+            <div class="feedback-stars" data-page-score="version">
+              <button type="button" data-value="1">1</button>
+              <button type="button" data-value="2">2</button>
+              <button type="button" data-value="3">3</button>
+              <button type="button" data-value="4">4</button>
+              <button type="button" data-value="5">5</button>
+            </div>
+          </div>
+
+          <div class="feedback-card-block">
+            <span>04 / EVOLUTION</span>
+            <strong>最该继续进化的部分（多选）</strong>
+            <div class="feedback-picks" data-page-picks="improve">
+              <button type="button" data-value="wilder_quiz">题目更疯一点</button>
+              <button type="button" data-value="more_like_me">结果更像我一点</button>
+              <button type="button" data-value="sharper_roast">锐评更狠一点</button>
+              <button type="button" data-value="cooler_visual">视觉更酷一点</button>
+              <button type="button" data-value="smoother_share">分享更顺一点</button>
+              <button type="button" data-value="shorter_flow">流程更短一点</button>
+            </div>
+          </div>
+
+          <div class="feedback-card-block">
+            <span>05 / SHARE</span>
+            <strong>你会甩给朋友吗？</strong>
+            <div class="feedback-picks single" data-page-picks="share">
+              <button type="button" data-value="yes">会，想看朋友翻车</button>
+              <button type="button" data-value="maybe">可能，看截图够不够狠</button>
+              <button type="button" data-value="no">暂时不会，还差点火候</button>
+            </div>
+          </div>
+
+          <label class="feedback-card-block">
+            <span>06 / MESSAGE</span>
+            <strong>留给我的话</strong>
+            <textarea
+              id="pageFeedbackMessage"
+              maxlength="180"
+              placeholder="想吐槽、想夸、想继续聊这个产品，都可以留在这里。"
+            ></textarea>
+          </label>
+
+          <button class="primary-btn" id="pageFeedbackSubmit">提交异常样本</button>
+          <button class="secondary-btn" id="feedbackBackBtn">回到档案页</button>
+          <p class="feedback-page-done" id="pageFeedbackDone">收到，已进入待接线队列。</p>
+          <pre class="feedback-debug" id="feedbackDebug" aria-live="polite"></pre>
+        </div>
+      </section>
+    </main>
+
+    <div class="feedback-overlay" id="feedbackModal" aria-hidden="true">
+      <section class="feedback-panel" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+        <button class="feedback-close" id="feedbackClose" aria-label="关闭反馈">×</button>
+        <p class="eyebrow">Feedback Leak</p>
+        <h2 id="feedbackTitle">帮我锐评一下这个产品</h2>
+        <p class="feedback-intro">本系统正在收集异常样本。请放心，骂得越准，产品越有救。</p>
+
+        <div class="feedback-field">
+          <span>这个 idea 你愿意给几分？</span>
+          <div class="feedback-scale" data-feedback-scale="idea">
+            <button type="button" data-value="1">1</button>
+            <button type="button" data-value="2">2</button>
+            <button type="button" data-value="3">3</button>
+            <button type="button" data-value="4">4</button>
+            <button type="button" data-value="5">5</button>
+            <button type="button" data-value="6">6</button>
+            <button type="button" data-value="7">7</button>
+            <button type="button" data-value="8">8</button>
+            <button type="button" data-value="9">9</button>
+            <button type="button" data-value="10">10</button>
+          </div>
+        </div>
+
+        <div class="feedback-field">
+          <span>现在这个版本实现能打几分？</span>
+          <div class="feedback-scale" data-feedback-scale="version">
+            <button type="button" data-value="1">1</button>
+            <button type="button" data-value="2">2</button>
+            <button type="button" data-value="3">3</button>
+            <button type="button" data-value="4">4</button>
+            <button type="button" data-value="5">5</button>
+            <button type="button" data-value="6">6</button>
+            <button type="button" data-value="7">7</button>
+            <button type="button" data-value="8">8</button>
+            <button type="button" data-value="9">9</button>
+            <button type="button" data-value="10">10</button>
+          </div>
+        </div>
+
+        <div class="feedback-field">
+          <span>最该继续进化的是？</span>
+          <div class="feedback-chips" data-feedback-chips="improve">
+            <button type="button" data-value="wilder_quiz">题目更疯一点</button>
+            <button type="button" data-value="more_like_me">结果更像我一点</button>
+            <button type="button" data-value="sharper_roast">锐评更狠一点</button>
+            <button type="button" data-value="cooler_visual">视觉更酷一点</button>
+            <button type="button" data-value="smoother_share">分享更顺一点</button>
+            <button type="button" data-value="shorter_flow">流程更短一点</button>
+            <button type="button" data-value="other">我还想说</button>
+          </div>
+          <textarea
+            class="feedback-inline-note"
+            id="feedbackImproveOther"
+            maxlength="120"
+            placeholder="这里可以直接写：哪里无聊、哪里不够准、哪里还可以更疯。"
+          ></textarea>
+        </div>
+
+        <div class="feedback-field">
+          <span>你会甩给朋友吗？</span>
+          <div class="feedback-chips single" data-feedback-chips="share">
+            <button type="button" data-value="yes">会，想看朋友翻车</button>
+            <button type="button" data-value="maybe">可能，看截图够不够狠</button>
+            <button type="button" data-value="no">暂时不会，还差点火候</button>
+          </div>
+        </div>
+
+        <label class="feedback-field">
+          <span>留给我的话</span>
+          <textarea id="feedbackComment" maxlength="120" placeholder="想吐槽、想夸、想让它变得更离谱，都可以写在这里。"></textarea>
+        </label>
+
+        <button class="primary-btn" id="feedbackSubmit">提交锐评</button>
+        <p class="feedback-done" id="feedbackDone">收到，已写进异常日志。</p>
+      </section>
+    </div>
+
+    <script>
+const screens = [...document.querySelectorAll(".screen")];
+const regretGrid = document.querySelector("#regretGrid");
+const questionProgress = document.querySelector("#questionProgress");
+const questionIndex = document.querySelector("#questionIndex");
+const questionGhost = document.querySelector("#questionGhost");
+const questionText = document.querySelector("#questionText");
+const optionList = document.querySelector("#optionList");
+const progressFill = document.querySelector("#progressFill");
+const quizHint = document.querySelector("#quizHint");
+const braveInput = document.querySelector("#braveInput");
+const loadingLine = document.querySelector("#loadingLine");
+const loadingFill = document.querySelector("#loadingFill");
+const loadingPercent = document.querySelector("#loadingPercent");
+const feedbackModal = document.querySelector("#feedbackModal");
+const feedbackComment = document.querySelector("#feedbackComment");
+const feedbackDone = document.querySelector("#feedbackDone");
+const feedbackImproveOther = document.querySelector("#feedbackImproveOther");
+const pageFeedbackMessage = document.querySelector("#pageFeedbackMessage");
+const pageFeedbackDone = document.querySelector("#pageFeedbackDone");
+const feedbackDebug = document.querySelector("#feedbackDebug");
+
+const state = {
+  regretCard: "",
+  braveSentence: "",
+  question: 0,
+  answers: [],
+  scores: {
+    escape: 0,
+    toss: 0,
+    review: 0,
+    hardmouth: 0,
+    stable: 0,
+    romance: 0,
+    social: 0,
+    reality: 0,
+  },
+  result: null,
+};
+
+const feedbackFormUrl =
+  "https://wqgum9szl7x.feishu.cn/share/base/form/shrcnp3TVyI3M8INaLJwqwS7HFh";
+const feedbackEndpoint = window.PARALLELIFE_FEEDBACK_ENDPOINT || "https://feedback.parallelife.origo-cn.com/api/feedback";
+const optionLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+const feedbackState = {
+  idea: "",
+  version: "",
+  improve: [],
+  share: "",
+};
+
+const pageFeedbackState = {
+  match: "",
+  idea: "",
+  version: "",
+  improve: [],
+  share: "",
+};
+
+const regretCards = [
+  "没说出口的话",
+  "没考上的好学校",
+  "没辞的工作",
+  "没在一起的人",
+  "没学会的技能",
+  "没去见的朋友",
+  "没回的消息",
+  "没买的彩票",
+  "没拉黑的人",
+  "没勇敢的那天",
+  "没留下的城市",
+  "没去的远方",
+];
+
+const regretCardScores = {
+  没说出口的话: { review: 1, hardmouth: 1, romance: 1 },
+  没考上的好学校: { review: 1, reality: 1, stable: 1 },
+  没辞的工作: { escape: 1, reality: 1, toss: 1 },
+  没在一起的人: { romance: 1, reality: 2 },
+  没学会的技能: { review: 1, stable: 1, toss: 1 },
+  没去见的朋友: { social: 2, stable: 1 },
+  没回的消息: { social: 1, review: 1, hardmouth: 1 },
+  没买的彩票: { reality: 1, romance: 1, toss: 1 },
+  没拉黑的人: { social: 1, hardmouth: 1, reality: 1 },
+  没勇敢的那天: { toss: 1, escape: 1, review: 1 },
+  没留下的城市: { escape: 1, stable: 1, social: 1, reality: 1 },
+  没去的远方: { escape: 2, romance: 1 },
+};
+
+const quizHints = [
+  "请勿过度分析，系统会自己乱算。",
+  "选错也没事，人生当年也是这么选的。",
+  "当前答案将用于生成离谱但合理的你。",
+  "系统提示：认真会降低娱乐效果。",
+];
+
+const questions = [
+  {
+    text: "如果人生能读档，你第一件事是：",
+    options: [
+      { label: "存档再疯", scores: { review: 2, stable: 1 } },
+      { label: "偷看结局", scores: { review: 1, escape: 1, romance: 1 } },
+      { label: "重装自己", scores: { toss: 2, escape: 1 } },
+      { label: "只改余额", scores: { reality: 2, hardmouth: 1 } },
+    ],
+  },
+  {
+    text: "你的人生更像：",
+    options: [
+      { label: "霸总剧", scores: { reality: 1, stable: 2 } },
+      { label: "大女主剧", scores: { romance: 2, toss: 1 } },
+      { label: "荒野求生", scores: { reality: 2, stable: 1 } },
+      { label: "导演跑路", scores: { hardmouth: 2, toss: 1 } },
+      { label: "老友记", scores: { social: 2, romance: 1, stable: 1 } },
+    ],
+  },
+  {
+    text: "平行世界的你发来消息：",
+    options: [
+      { label: "别走这条", scores: { review: 2, escape: 1 } },
+      { label: "我也翻车", scores: { hardmouth: 2, stable: 1 } },
+      { label: "你真敢选", scores: { toss: 1, review: 1, hardmouth: 1 } },
+      { label: "借我 200", scores: { reality: 2, social: 1 } },
+    ],
+  },
+  {
+    text: "你最想删除：",
+    options: [
+      { label: "那次嘴硬", scores: { review: 1, hardmouth: 2 } },
+      { label: "那个人设", scores: { romance: 2, review: 1 } },
+      { label: "那份工作", scores: { escape: 2, reality: 1 } },
+      { label: "那次相遇", scores: { romance: 2, social: 1 } },
+    ],
+  },
+  {
+    text: "你现在最像被什么卡住：",
+    options: [
+      { label: "想太多，动太少", scores: { review: 2, stable: 1 } },
+      { label: "关系没坏，也没好", scores: { social: 2, romance: 1 } },
+      { label: "工作没塌，人快没了", scores: { reality: 2, escape: 1 } },
+      { label: "想自由，怕代价", scores: { escape: 1, stable: 1, reality: 1 } },
+      { label: "没大事，不甘心", scores: { hardmouth: 1, review: 1, toss: 1 } },
+    ],
+  },
+  {
+    text: "你的转折点通常来自：",
+    options: [
+      { label: "临时上头", scores: { toss: 2, escape: 1 } },
+      { label: "手滑一点", scores: { toss: 2, reality: 1 } },
+      { label: "贵人迷路", scores: { romance: 2, social: 1 } },
+      { label: "误会成真", scores: { hardmouth: 1, review: 1, toss: 1 } },
+      { label: "不愧是我", scores: { hardmouth: 1, stable: 1, toss: 1 } },
+    ],
+  },
+  {
+    text: "如果偷看平行人生 10 秒，你看：",
+    options: [
+      { label: "住哪", scores: { escape: 2, stable: 1 } },
+      { label: "跟谁", scores: { romance: 2, review: 1 } },
+      { label: "余额", scores: { reality: 2, stable: 1 } },
+      { label: "精神状态", scores: { social: 2, review: 1 } },
+    ],
+  },
+  {
+    text: "你的人生当前状态：",
+    options: [
+      { label: "加载失败", scores: { review: 1, stable: 1 } },
+      { label: "维修营业", scores: { review: 2, hardmouth: 1 } },
+      { label: "试营业中", scores: { toss: 2, romance: 1 } },
+      { label: "暂不做人", scores: { hardmouth: 2, social: 1 } },
+    ],
+  },
+  {
+    text: "如果另一版你混得很好，你会：",
+    options: [
+      { label: "立刻学习", scores: { stable: 2, review: 1 } },
+      { label: "暗中嫉妒", scores: { hardmouth: 1, reality: 1 } },
+      { label: "表面祝福", scores: { romance: 1, review: 1 } },
+      { label: "当场拉黑", scores: { social: 2, hardmouth: 1 } },
+    ],
+  },
+  {
+    text: "如果另一版你混得更差，你会：",
+    options: [
+      { label: "谢天谢地", scores: { reality: 1, hardmouth: 1 } },
+      { label: "去安慰他", scores: { romance: 2, social: 1 } },
+      { label: "笑出声", scores: { hardmouth: 2 } },
+      { label: "果然是我", scores: { review: 2, stable: 1 } },
+    ],
+  },
+];
+
+const species = {
+  剧情偏移体: ["普通日子不够你用，非要给它开隐藏剧情。", "嘴上说随便，后台高频运算。"],
+  灵感个体户: ["热血来得像闪电，执行像网盘限速。", "半夜热血建档，白天冷静搁置。"],
+  人类观察员: ["参与感一般，分析别人和自己都很起劲。", "自己没动，先把局势看明白了。"],
+  迁徙候鸟: ["总以为换个地方，旧毛病会自己退房。", "人还没走，攻略已经收藏满了。"],
+  体面逃兵: ["表面稳定运行，内心离职申请常年草稿。", "会议里点头，脑内已离职。"],
+  延迟行动家: ["不是不想改变，是启动前戏能演三季。", "改变人生前，先研究三天工具。"],
+  温柔反骨仔: ["看起来很好说话，其实心里一直在改合同。", "嘴上“都行”，心里“凭什么”。"],
+  废墟开花者: ["崩完还能开花，但会顺手写一份事故复盘。", "崩溃完还能顺手写总结。"],
+  情绪考古学家: ["专从过期事件里挖新证据，越挖越有理。", "别人都翻篇了，你还在补充证据。"],
+  自由幻想犯: ["还没自由，已经把自由后的焦虑预装好了。", "上班想辞职，休息怕没钱。"],
+  稳定收藏家: ["想冒险，但安全感必须先签收再出门。", "想裸辞，先算十八版现金流。"],
+  城市借住者: ["在哪都像临时停靠，连安定都带试用期。", "房间没布置完，下一站已收藏。"],
+  高敏雷达体: ["别人一句话路过，你脑内已经开庭。", "消息少个表情，开始分析关系。"],
+  低电量社交体: ["能社交，但电池健康度不支持连续营业。", "聚会正常发挥，回家系统关机。"],
+  人生改稿员: ["事情过去了，你还在给当时的自己改台词。", "事都过去了，还在优化台词。"],
+  试营业勇者: ["没准备好也敢开张，出了问题再起名叫成长。", "边害怕边上场，边上场边升级。"],
+  浪漫校准器: ["清醒得很，但还是想给破事配点意义。", "一边清醒，一边给生活配旁白。"],
+  现实缝纫机: ["一边漏风一边补日子，针脚全是硬撑。", "今天不行，但明天还能修一下。"],
+  选择标本: ["不是不会选，是每条岔路都想留个存档样本。", "点外卖都能感到命运分叉。"],
+  深夜清醒者: ["白天像个人，夜里开始审判整个人生。", "睡前突然审问未来。"],
+  松弛模拟器: ["表面随缘，后台把最坏情况算到小数点。", "说“不急”，其实预案齐全。"],
+  命运旁听生: ["人生在开会，你像被临时拉进来旁听。", "别人推进，你还在理解规则。"],
+  横跳选手: ["上午想安稳，下午想消失，晚上开始自责。", "上午想安定，下午想跑路。"],
+  自洽练习生: ["道理懂一堆，放过自己还在试用期。", "能安慰所有人，除了自己。"],
+};
+
+const speciesRules = [
+  [["escape", "toss"], ["迁徙候鸟", "剧情偏移体", "试营业勇者"]],
+  [["escape", "stable"], ["横跳选手", "城市借住者", "自由幻想犯"]],
+  [["escape", "review"], ["人生改稿员", "迁徙候鸟"]],
+  [["toss", "hardmouth"], ["剧情偏移体", "温柔反骨仔"]],
+  [["toss", "romance"], ["灵感个体户", "试营业勇者"]],
+  [["review", "stable"], ["人生改稿员", "延迟行动家"]],
+  [["review", "hardmouth"], ["人类观察员", "情绪考古学家"]],
+  [["review", "romance"], ["浪漫校准器", "深夜清醒者"]],
+  [["stable", "reality"], ["稳定收藏家", "体面逃兵"]],
+  [["stable", "hardmouth"], ["松弛模拟器", "命运旁听生"]],
+  [["romance", "social"], ["高敏雷达体", "浪漫校准器"]],
+  [["social", "hardmouth"], ["低电量社交体", "选择标本"]],
+  [["reality", "hardmouth"], ["现实缝纫机", "自由幻想犯"]],
+];
+
+const roasts = {
+  review: [
+    "你不是想重开，是想证明当时那版自己也有道理。",
+    "别人重开人生，你重开证据链。",
+    "选择早结束了，你的脑内法庭还没休庭。",
+    "你不是放不下，是想给放下写一份验收报告。",
+  ],
+  escape: [
+    "你想换的不是地方，是一种不用解释自己的空气。",
+    "世界线偏移了，但你的反应系统原封不动搬家。",
+    "另一条路也没绕开你，只是换个场景继续报错。",
+    "你以为自己在出走，其实只是带着旧系统换皮肤。",
+  ],
+  hardmouth: [
+    "你表面说随便，系统检测到你已经脑内改了三版结局。",
+    "你不是没事，你只是把有事包装得很有礼貌。",
+    "新身份上线，旧嘴硬继续值班。",
+    "人生发生偏移，嘴硬精度仍然行业领先。",
+  ],
+  toss: [
+    "你不是爱折腾，你是安静五分钟就怀疑人生没推进。",
+    "路线重算成功，性格补丁安装失败。",
+    "平行人生很精彩，毕竟你本人负责加戏。",
+    "你很会开始，也很会把开始改名叫准备。",
+  ],
+  stable: [
+    "你看起来在冒险，其实每一步都带撤回键。",
+    "命运试图推进，你负责弹出确认框。",
+    "人生给你开盲盒，你想先看售后政策。",
+    "你的勇敢属于限时体验，过期自动恢复谨慎。",
+  ],
+  romance: [
+    "你不是想赢，你是不想输得没有叙事感。",
+    "你的人生滤镜很强，连崩溃都要讲构图。",
+    "换个活法可以，换掉脑内剧场比较难。",
+    "你不是放不下，是想把放下也处理得很有美感。",
+  ],
+  reality: [
+    "你不是没有野心，是野心正在等预算批复。",
+    "你对未知的热爱，通常止步于未知开始收费。",
+    "你的自由需要边界，你的边界需要报销。",
+    "你不是想太多，是想把偶然也纳入风控。",
+  ],
+  social: [
+    "你不是随遇而安，是把预案藏得很深。",
+    "你看起来在放手，其实只是换了种抓法。",
+    "你每次说算了，系统都记录为“待处理”。",
+    "你不是怕社交，你是怕社交之后还要维护现场。",
+  ],
+};
+
+const loadingLines = [
+  "正在调取未发生记录",
+  "正在扫描人生 bug",
+  "正在比对另一版你",
+  "正在修复嘴硬模块",
+  "正在压缩遗憾文件",
+  "正在同步旧毛病",
+  "正在检测命运离谱程度",
+];
+
+function trackEvent(name, params = {}) {
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", name, {
+    app_name: "parallel_life_archive",
+    ...params,
+  });
+}
+
+function showScreen(name) {
+  screens.forEach((screen) => {
+    screen.classList.toggle("screen-active", screen.dataset.screen === name);
+  });
+}
+
+function pick(list, seed = 0) {
+  return list[Math.abs(seed) % list.length];
+}
+
+function addScores(scores) {
+  Object.entries(scores).forEach(([key, value]) => {
+    state.scores[key] += value;
+  });
+}
+
+function topDimensions() {
+  return Object.entries(state.scores).sort((a, b) => b[1] - a[1]);
+}
+
+function renderRegretCards() {
+  regretGrid.innerHTML = regretCards
+    .map(
+      (card, index) => `
+        <button class="event-card" data-card="${card}">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <strong>${card}</strong>
+        </button>
+      `,
+    )
+    .join("");
+}
+
+function renderQuestion() {
+  const question = questions[state.question];
+  const progress = state.question + 1;
+  questionProgress.textContent = `串线进度 ${String(progress).padStart(2, "0")} / ${questions.length}`;
+  questionIndex.textContent = `Question ${String(progress).padStart(2, "0")}`;
+  questionGhost.textContent = `Q${String(progress).padStart(2, "0")}`;
+  questionText.textContent = question.text;
+  progressFill.style.width = `${(state.question / questions.length) * 100}%`;
+  quizHint.textContent = pick(quizHints, state.question);
+  optionList.innerHTML = question.options
+    .map(
+      (option, index) => `
+        <button class="option-btn" data-option="${index}">
+          <span>${optionLetters[index]}</span>
+          ${option.label}
+        </button>
+      `,
+    )
+    .join("");
+}
+
+function goNextQuestion(optionIndex) {
+  const currentIndex = state.question;
+  const option = questions[currentIndex].options[optionIndex];
+  state.answers[currentIndex] = option.label;
+  addScores(option.scores);
+  state.question += 1;
+  if (state.question >= questions.length) {
+    progressFill.style.width = "100%";
+    showScreen("open");
+    braveInput.focus();
+    return;
+  }
+  renderQuestion();
+}
+
+function identityFor(card, strongest, secondStrongest) {
+  const map = {
+    没留下的城市: {
+      escape: "把离开当重启键的人",
+      stable: "离开前还给自己留备用方案的人",
+      review: "把那座城市反复调成如果当初的人",
+      hardmouth: "嘴上说不后悔，天气预报还留着的人",
+      romance: "把旧城市拍成内心空镜的人",
+      toss: "走了以后才开始给城市补剧情的人",
+      reality: "离开很果断，房租记得很清楚的人",
+      social: "人离开了，关系还卡在当地的人",
+    },
+    没辞的工作: {
+      toss: "在自由和现金流之间反复横跳的人",
+      reality: "嘴上说试试，后台疯狂算账的人",
+      review: "离开工位后继续复盘工位的人",
+      escape: "人已离职，精神还在打卡的人",
+      stable: "辞职后给自己重新排 KPI 的人",
+      hardmouth: "嘴上不干了，简历还没改的人",
+      romance: "把裸辞想象成公路片的人",
+      social: "退群前先观察群聊风向的人",
+    },
+    没在一起的人: {
+      romance: "在另一条关系线里认真失控的人",
+      review: "把错过的人复盘成年度报告的人",
+      social: "把边界感设置成隐藏模式的人",
+      hardmouth: "嘴上没事，心里开播的人",
+      escape: "想离开关系，又收藏聊天记录的人",
+      stable: "心动前先找安全出口的人",
+      toss: "一上头就给剧情加速的人",
+      reality: "知道没结果，还要算清谁先动心的人",
+    },
+    没学会的技能: {
+      review: "把兴趣研究成长期课题的人",
+      toss: "还没入门就想开副本的人",
+      stable: "给热爱也先留退路的人",
+      escape: "想靠新技能换一套人生皮肤的人",
+      hardmouth: "嘴上随便学学，教程收藏爆仓的人",
+      romance: "给三分钟热度配十年滤镜的人",
+      reality: "刚入门就搜索变现路径的人",
+      social: "学会前先想好怎么低调炫耀的人",
+    },
+    没去见的朋友: {
+      social: "把想念拖成待办的人",
+      review: "见面没发生，复盘先开始的人",
+      escape: "想见又怕被近况追问的人",
+      stable: "约见面也要先看精神电量的人",
+      hardmouth: "嘴上改天，心里知道改天很远的人",
+      romance: "把朋友重逢拍成片尾彩蛋的人",
+      toss: "差点买票，差点真的出现的人",
+      reality: "想念很真，时间和预算也很真诚的人",
+    },
+    没说出口的话: {
+      hardmouth: "把真心话压缩成系统草稿的人",
+      romance: "在沉默里写完三季连续剧的人",
+      review: "把未发送消息审计成档案的人",
+      escape: "想躲开现场，又不肯放过细节的人",
+      stable: "开口前先准备应急预案的人",
+      toss: "差点冲动发送又撤回的人",
+      reality: "真心很多，发送成本更高的人",
+      social: "关系在线，表达离线的人",
+    },
+    没回的消息: {
+      review: "把一条消息拖成悬案的人",
+      social: "在线但选择性失踪的人",
+      hardmouth: "不是不回，是在等合适人设的人",
+      romance: "把已读未回写成番外的人",
+      stable: "回复前先计算后果的人",
+      escape: "靠不回消息维持安全距离的人",
+      toss: "突然回复，像命运诈尸的人",
+      reality: "消息很轻，处理成本很重的人",
+    },
+    没买的彩票: {
+      reality: "把暴富当精神止痛片的人",
+      romance: "用两块钱购买平行宇宙门票的人",
+      review: "开奖后才开始精确复盘的人",
+      stable: "幻想暴富，也要先做资产配置的人",
+      hardmouth: "嘴上不信，号码记得很清楚的人",
+      toss: "人生没重开，彩票先试运行的人",
+      escape: "想靠中奖退出当前副本的人",
+      social: "中奖前已想好怎么消失的人",
+    },
+    没拉黑的人: {
+      social: "边界感上线太晚的人",
+      hardmouth: "手没拉黑，嘴已经拉黑的人",
+      review: "把关系垃圾桶翻了三遍的人",
+      romance: "把不该留的人写成剧情伏笔的人",
+      escape: "想断联，又偷偷保留出口的人",
+      stable: "结束关系也要讲流程的人",
+      toss: "一秒拉黑，三秒后复盘的人",
+      reality: "情绪上头，证据先留存的人",
+    },
+    没勇敢的那天: {
+      toss: "勇敢模块加载到一半的人",
+      escape: "想冲出去，又把门检查三遍的人",
+      hardmouth: "嘴上不怕，行动在排队的人",
+      review: "把勇敢时机复盘到过期的人",
+      romance: "给没发生的勇敢写旁白的人",
+      stable: "等万无一失才准备冒险的人",
+      reality: "勇气有了，成本也看见了的人",
+      social: "怕失败，更怕被熟人看见的人",
+    },
+    没考上的好学校: {
+      review: "把录取线反复翻案的人",
+      romance: "给没去成的校园加了十年滤镜的人",
+      stable: "遗憾很大， Plan B 也写得很整齐的人",
+      escape: "想靠校门换一版自己的人",
+      toss: "差一点上岸，就想重开整条河的人",
+      hardmouth: "嘴上学校都一样，心里分数线还没删的人",
+      reality: "知道人生不止学历，但还是记得差几分的人",
+      social: "怕别人问学校，更怕自己还在意的人",
+    },
+    没去的远方: {
+      escape: "把远方当精神出口的人",
+      review: "机票没买，路线优化了三年的人",
+      romance: "把没出发的地方拍成片尾的人",
+      stable: "想去远方，但先查退改规则的人",
+      hardmouth: "嘴上哪都一样，收藏夹全是远方的人",
+      toss: "行李没收，心已经开始转机的人",
+      reality: "自由很想要，余额也很会讲话的人",
+      social: "远方没去，朋友圈定位先想好了的人",
+    },
+  };
+  const fallback = {
+    review: "把人生过成复盘现场的人",
+    escape: "把远方当系统补丁的人",
+    toss: "把普通日子开成隐藏副本的人",
+    hardmouth: "嘴上随便，后台全红的人",
+    stable: "给命运也加撤回键的人",
+    romance: "给现实强行加滤镜的人",
+    social: "在人群里保持后台运行的人",
+    reality: "梦想发光，账单校准的人",
+  };
+  return map[card]?.[strongest] || map[card]?.[secondStrongest] || fallback[strongest] || "在另一条时间线里认真跑偏的人";
+}
+
+function currentStateFor(strongest, secondStrongest, speciesName) {
+  const combo = {
+    "review:hardmouth": ["结论生成中，嘴硬已上线", "证据还在追加，态度先稳住"],
+    "review:stable": ["复盘进行中，风险表已打开", "主线暂停，说明书重写中"],
+    "review:romance": ["旧剧情重播中，滤镜未关闭", "回忆加载中，理智在旁听"],
+    "escape:toss": ["人已偏航，支线很忙", "新地图试运行，旧问题跟随"],
+    "escape:stable": ["想跑路，但带着安全绳", "定位在远方，预案在本地"],
+    "escape:social": ["关系降噪中，撤退路线清晰", "在线人数很多，你先隐身"],
+    "toss:hardmouth": ["支线乱开，嘴硬稳定", "已进入公测，暂不承认翻车"],
+    "toss:romance": ["剧情加速中，滤镜过热", "灵感上线，后果排队"],
+    "stable:reality": ["梦想想冲，钱包冷笑", "现金流监控中，浪漫暂缓"],
+    "stable:hardmouth": ["表面松弛，后台风控", "撤回键常亮，嘴上说行"],
+    "romance:social": ["关系线开播，静音键很忙", "情绪有戏，边界待机"],
+    "reality:hardmouth": ["账单很清醒，嘴还很硬", "现实校准中，野心未关"],
+  };
+  const key = `${strongest}:${secondStrongest}`;
+  const reverseKey = `${secondStrongest}:${strongest}`;
+  const dimension = {
+    review: ["暂无结论，证据很多", "脑内会议还在加赛"],
+    escape: ["人未出发，心已偏航", "当前位置正常，撤退路线已收藏"],
+    toss: ["支线开启，后果待定", "试营业中，系统不保修"],
+    hardmouth: ["嘴上随便，后台高频运算", "态度很稳，日志很乱"],
+    stable: ["安全模式运行中", "撤退按钮还亮着"],
+    romance: ["滤镜加载中，现实掉帧", "剧情感很强，说明书很少"],
+    social: ["在线但低电量", "关系在线，表达离线"],
+    reality: ["梦想待机，账单在线", "现实校准中，幻想未关闭"],
+  };
+  const speciesStates = {
+    情绪考古学家: ["旧案重审中，证据持续增加", "别人翻篇，你在补档"],
+    自由幻想犯: ["自由未到账，焦虑已预装", "想象很自由，成本很具体"],
+    人类观察员: ["参与感一般，分析欲满格", "场上没动，场下写报告"],
+    体面逃兵: ["看似稳定，撤退路线常亮", "人还在场，心已请假"],
+    延迟行动家: ["启动动画过长", "准备充分，行动待机"],
+    横跳选手: ["上午安定，下午跑路", "稳定和自由正在互殴"],
+  };
+  const pool = combo[key] || combo[reverseKey] || speciesStates[speciesName] || dimension[strongest] || ["主线不明，支线很忙"];
+  return pick(pool, state.regretCard.length + speciesName.length + state.scores[strongest]);
+}
+
+function speciesFor(topOne, topTwo) {
+  const hit = speciesRules.find(([pair]) => pair.includes(topOne) && pair.includes(topTwo));
+  if (!hit) return "自洽练习生";
+  const [, candidates] = hit;
+  return pick(candidates, state.regretCard.length + state.braveSentence.length);
+}
+
+function routeMetaFor(card) {
+  const routes = {
+    没说出口的话: ["语音留言支线", "该路线涉及：一段没按下发送键的真心"],
+    没考上的好学校: ["录取通知书支线", "该路线涉及：一个差点被盖章的版本"],
+    没辞的工作: ["世界那么大分支线", "该路线涉及：一封没发出去的辞职信"],
+    没在一起的人: ["未上映关系线", "该路线涉及：某个没播出的番外"],
+    没学会的技能: ["技能包安装线", "该路线涉及：一项差点改命的隐藏技能"],
+    没去见的朋友: ["相见怀念支线", "该路线涉及：一场被日程鸽掉的重逢"],
+    没回的消息: ["已读秒回支线", "该路线涉及：一条被拖成剧情的消息"],
+    没买的彩票: ["暴富分支线", "该路线涉及：一张没刮开的命运小票"],
+    没拉黑的人: ["边界重置线", "该路线涉及：一个早该回收的临时通行证"],
+    没勇敢的那天: ["勇气复活线", "该路线涉及：那天没按下的确认键"],
+    没留下的城市: ["栖息地支线", "该路线涉及：一座没来得及驯服你的城市"],
+    没去的远方: ["未知加载线", "该路线涉及：一个还没抵达的地图坐标"],
+  };
+  const [name, hint] = routes[card] || ["异常分支线", "该路线涉及：一个系统没敢明说的节点"];
+  return { name, hint };
+}
+
+function recordFor(card, sentence, strongest) {
+  const clean = sentence.replace(/[「」"“”]/g, "").trim() || "重开一下";
+  const motif = /远方|旅行|城市|海|世界/.test(clean)
+    ? "陌生世界"
+    : /摄影|画|写|音乐|鼓|唱|舞|演员|镜头/.test(clean)
+      ? "镜头感"
+      : /创业|老板|副业|公司|钱|自由/.test(clean)
+        ? "新副本"
+        : /朋友|恋爱|爱|见|关系|人/.test(clean)
+          ? "关系线"
+          : /学|技能|专业|学校|考试/.test(clean)
+            ? "技能树"
+            : "番外篇";
+  const defaults = [
+    `平行人生里，你把那条没打开的支线点了继续。剧情不一定更顺，但至少不用再靠脑补续命。`,
+    `系统恢复了一段没播出的${motif}。你在里面多走了几步，发现人生没变简单，只是多了一个可以回看的版本。`,
+  ];
+  const map = {
+    没说出口的话: [
+      `平行人生里，那句话终于从草稿箱逃出来。世界没有爆炸，只是你少了一项长期后台运行的“如果当时”。`,
+      `那边的你按下发送键，然后假装只是手滑。对方可能记住一句话，你记住自己终于没演沉默。`,
+    ],
+    没留下的城市: [
+      `平行人生里，你真的在那座城市多住了一季。街道开始认得你，你也开始怀疑，原来安定不一定等于投降。`,
+      `那边的你给自己办了长期模式。城市没把你驯服，只是让你少一点随时撤退的姿势。`,
+    ],
+    没辞的工作: [
+      `平行人生里，那封辞职信发出去了。你先爽了三分钟，然后发现自由也会催账，但至少催得比较有风。`,
+      `那边的你把工牌摘下，人生没有立刻开挂，只是终于不再把疲惫误认为稳定。`,
+    ],
+    没在一起的人: [
+      `平行人生里，未上映关系线短暂开播。甜是真的，互相照出旧毛病也是真的，最后片尾曲还挺会骗人。`,
+      `那边的你们可能一起浪费过几个下午，又各自回到原来的轨道。遗憾少一点，回忆多一点，麻烦也没缺席。`,
+    ],
+    没学会的技能: [
+      `平行人生里，技能包安装成功。刚学会时你很低调，三天后已经开始幻想用它给人生换皮肤。`,
+      `那边的你把兴趣练成了武器。不是立刻逆袭，但至少焦虑从此多了一个出口。`,
+    ],
+    没去见的朋友: [
+      `平行人生里，你们真的见了一面，顺手把陌生世界也逛了一小段。后来还是回到各自轨道，但那天没有白白缺席。`,
+      `那边的你们坐下来叙旧，发现有些人不用天天联系，也能一秒恢复出厂亲近。只是散场时会有点安静。`,
+    ],
+    没回的消息: [
+      `平行人生里，那条消息被秒回了。剧情没有立刻升温，但沉默少了一格，关系线终于不用靠猜续命。`,
+      `那边的你按下发送，对方正在输入。你表面镇定，内心弹幕已经开会员。`,
+    ],
+    没买的彩票: [
+      `平行人生里，那张小票真的改写了余额。你没有立刻变俗，只是突然理解了“钱不是万能”的人可能钱很多。`,
+      `那边的你暴富了一小会儿，先截图，后冷静，再开始怀疑自己是不是终于被命运回访。`,
+    ],
+    没拉黑的人: [
+      `平行人生里，边界重置成功。你没有变冷漠，只是终于停止给不合格访客发临时通行证。`,
+      `那边的你手起键落，世界安静了两秒。爽是真的，复盘也是真的，但至少门终于关上了。`,
+    ],
+    没勇敢的那天: [
+      `平行人生里，那天你把勇气复活了。没有背景音乐，但你终于没把自己让给“算了”。`,
+      `那边的你按下确认键。结果不一定赢，但至少这次不是由退缩替你签名。`,
+    ],
+    没考上的好学校: [
+      `平行人生里，录取通知书真的到了。人生没有自动高级，只是你的自我怀疑换了个更贵的校区。`,
+      `那边的你走进那扇门，发现光环会亮，压力也会亮。只是“我不行”的音量小了一点。`,
+    ],
+    没去的远方: [
+      `平行人生里，你真的去了那个远方。风景很新，脑内系统还是原装，但至少它被迫看了点没见过的东西。`,
+      `那边的你把地图加载到未知区。远方没有治好全部问题，但成功让旧问题换了个背景板。`,
+    ],
+  };
+  const pool = map[card] || defaults;
+  return pick(pool, clean.length + state.scores[strongest]);
+}
+
+function routeReasonFor(card, strongest) {
+  const cardReasons = {
+    没说出口的话: "没人知道你比看起来更会憋真心。普通人沉默是没话说，你沉默像在给一句话做风险评估。",
+    没考上的好学校: "你惦记的不是学校，是那个差点被世界盖章的自己。普通人怀念光环，你怀念一次“我可以”的官方认证。",
+    没辞的工作: "你不是不想走，是太清楚自由也会寄账单。普通人辞职换环境，你辞职像把人生从工位压缩包里解出来。",
+    没在一起的人: "你不是放不下谁，是对相遇的想象太会续杯。普通人要结果，你连没播出的番外都能剪出片尾曲。",
+    没学会的技能: "你不是三分钟热度，是怕认真学会以后，人生还装作没听见。普通人学技能加点，你学技能像偷偷换职业。",
+    没去见的朋友: "没人知道你比表现出来更重情义，只是重逢太像开盲盒。普通人见朋友叙旧，你见朋友像打开时间胶囊。",
+    没回的消息: "你不是冷漠，是一个输入框都能被你写成关系番外。普通人回消息聊天，你回消息像重启一条沉睡支线。",
+    没买的彩票: "你不是只想暴富，是想看命运有没有一次肯给你开绿灯。普通人买概率，你买的是“轮到我了”的幻觉。",
+    没拉黑的人: "你不是心软，是太会给不该留的人发临时通行证。普通人拉黑是结束，你拉黑像给自己补发边界证。",
+    没勇敢的那天: "你不是没胆，是后果刚露头，你就开始替它安排座位。普通人勇敢靠冲动，你勇敢前先看失败预告片。",
+    没留下的城市: "你不是留不住城市，是怕留下以后发现想走的是自己。普通人留下叫安定，你留下像和城市互相试用。",
+    没去的远方: "你不是想旅游，是想把旧版本的自己暂时调成飞行模式。普通人去远方看风景，你去远方换背景板。",
+  };
+  const dimensionReasons = {
+    review: "再加上你复盘值偏高，旧剧情在你这里没有完结，只有重新剪辑。",
+    escape: "再加上你逃离值偏高，系统判定你不是想消失，是想换一种不用解释自己的空气。",
+    toss: "再加上你折腾值偏高，机会还没成熟，你已经把副本门票摸出来了。",
+    hardmouth: "再加上你嘴硬值偏高，嘴上说随便，后台已经把细节想了三遍。",
+    stable: "再加上你稳定值偏高，冲动到你这里都要先过一遍风控。",
+    romance: "再加上你浪漫值偏高，现实只给一秒钟，你能剪成三分钟预告片。",
+    social: "再加上你社交值偏高，关系没断，只是被你放进了低电量模式。",
+    reality: "再加上你现实值偏高，幻想刚发光，你已经开始检查它有没有找零。",
+  };
+  return [
+    cardReasons[card] || "因为你不是缺选择，是每个选择都被你开了评论区。",
+    dimensionReasons[strongest] || "别人说算了，你在后台追加三页备注。",
+  ].join("");
+}
+
+function calculateChart() {
+  const raw = {
+    折腾值: state.scores.toss + state.scores.escape,
+    复盘值: state.scores.review,
+    嘴硬值: state.scores.hardmouth,
+    逃离值: state.scores.escape + state.scores.social,
+    自洽值: Math.max(0, state.scores.stable + state.scores.romance - state.scores.review),
+  };
+  const maxRaw = Math.max(...Object.values(raw), 1);
+  return Object.entries(raw).map(([label, value]) => ({
+    label,
+    value: Math.max(26, Math.min(99, Math.round((value / maxRaw) * 96))),
+  }));
+}
+
+function topDimensionSummary(chart) {
+  const top = [...chart].sort((a, b) => b.value - a.value)[0] || { label: "折腾值", value: 88 };
+  const nameMap = {
+    折腾值: "折腾指数",
+    复盘值: "复盘指数",
+    嘴硬值: "嘴硬指数",
+    逃离值: "逃离指数",
+    自洽值: "自洽指数",
+  };
+  const lines = {
+    折腾值: `你的${nameMap[top.label]}打败了全国${top.value}%的用户。别人等风来，你已经把副本入口翻出来了。`,
+    复盘值: `你的${nameMap[top.label]}打败了全国${top.value}%的用户。别人翻篇靠睡一觉，你翻篇靠重剪导演版。`,
+    嘴硬值: `你的${nameMap[top.label]}打败了全国${top.value}%的用户。嘴上说随便，后台已经改了三版结局。`,
+    逃离值: `你的${nameMap[top.label]}打败了全国${top.value}%的用户。人还在原地，撤退路线已经收藏夹置顶。`,
+    自洽值: `你的${nameMap[top.label]}打败了全国${top.value}%的用户。你不是想通了，是把自己说服得比较像真的。`,
+  };
+  return lines[top.label] || `你的隐藏指数打败了全国${top.value}%的用户。系统看完沉默，决定先尊重。`;
+}
+
+function calculateRouteProbability(card, strongest, topScore, secondScore) {
+  const base = {
+    没说出口的话: 68,
+    没考上的好学校: 66,
+    没辞的工作: 72,
+    没在一起的人: 70,
+    没学会的技能: 74,
+    没去见的朋友: 73,
+    没回的消息: 69,
+    没买的彩票: 61,
+    没拉黑的人: 71,
+    没勇敢的那天: 76,
+    没留下的城市: 67,
+    没去的远方: 75,
+  };
+  const dimensionBoost = {
+    review: 5,
+    escape: 7,
+    toss: 6,
+    hardmouth: 4,
+    stable: 3,
+    romance: 6,
+    social: 6,
+    reality: 3,
+  };
+  const stuckBoost = {
+    "想太多，动太少": 5,
+    "关系没坏，也没好": 4,
+    "工作没塌，人快没了": 7,
+    "想自由，怕代价": 6,
+    "没大事，不甘心": 5,
+  };
+  const text = state.braveSentence.trim();
+  const keywordBoost = /远方|旅行|城市|海|世界|自由|见|朋友|恋爱|爱|关系|学|技能|专业|学校|创业|老板|钱/.test(text)
+    ? 5
+    : text.length >= 2
+      ? 2
+      : 0;
+  const stuck = state.answers[4] || "没大事，不甘心";
+  const raw =
+    (base[card] || 66) +
+    (dimensionBoost[strongest] || 4) +
+    (stuckBoost[stuck] || 3) +
+    keywordBoost +
+    Math.min(6, topScore + secondScore);
+  return Math.max(58, Math.min(97, raw));
+}
+
+function buildResult() {
+  const sorted = topDimensions();
+  const [topOne, topScore] = sorted[0];
+  const [topTwo, secondScore] = sorted[1];
+  const speciesName = speciesFor(topOne, topTwo);
+  const speciesInfo = species[speciesName];
+  const routeMeta = routeMetaFor(state.regretCard);
+  const deviation = Math.min(99, Math.max(61, 60 + topScore * 4 + secondScore * 2));
+  const routeProbability = calculateRouteProbability(state.regretCard, topOne, topScore, secondScore);
+  const chart = calculateChart();
+  const roast = pick(roasts[topOne] || roasts.review, state.braveSentence.length + topScore);
+
+  return {
+    routeName: routeMeta.name,
+    routeHint: routeMeta.hint,
+    routeProbability,
+    recordText: recordFor(state.regretCard, state.braveSentence, topOne),
+    speciesName,
+    speciesDesc: speciesInfo[0],
+    routeReason: routeReasonFor(state.regretCard, topOne),
+    identity: identityFor(state.regretCard, topOne, topTwo),
+    currentState: currentStateFor(topOne, topTwo, speciesName),
+    deviation,
+    chart,
+    topDimensionText: topDimensionSummary(chart),
+    roast,
+  };
+}
+
+function renderResult() {
+  state.result = buildResult();
+  trackEvent("finish_test", {
+    regret_card: state.regretCard,
+    species: state.result.speciesName,
+    deviation: state.result.deviation,
+  });
+  document.querySelector("#routeNameText").textContent = state.result.routeName;
+  document.querySelector("#routeHintText").textContent = state.result.routeHint;
+  document.querySelector("#routeProbabilityText").textContent = `${state.result.routeProbability}%`;
+  document.querySelector("#recordText").textContent = state.result.recordText;
+  document.querySelector("#routeReasonText").textContent = state.result.routeReason;
+  document.querySelector("#speciesName").textContent = state.result.speciesName;
+  document.querySelector("#speciesDesc").textContent = state.result.speciesDesc;
+  document.querySelector("#identityText").textContent = state.result.identity;
+  document.querySelector("#stateText").textContent = state.result.currentState;
+  document.querySelector("#roastText").textContent = state.result.topDimensionText;
+  document.querySelector("#chartList").innerHTML = state.result.chart
+    .map(
+      (item) => `
+        <div class="chart-row">
+          <span>${item.label}</span>
+          <div class="chart-bar"><i style="width:${item.value}%"></i></div>
+          <strong>${item.value}</strong>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function runLoading() {
+  showScreen("loading");
+  let tick = 0;
+  const timer = setInterval(() => {
+    tick += 1;
+    const percent = Math.min(99, tick * 13);
+    loadingFill.style.width = `${percent}%`;
+    loadingPercent.textContent = `${percent}%`;
+    loadingLine.textContent = pick(loadingLines, tick);
+
+    if (tick >= 8) {
+      clearInterval(timer);
+      loadingLine.textContent = "检测完成：你确实有点复杂。";
+      loadingFill.style.width = "100%";
+      loadingPercent.textContent = "100%";
+      setTimeout(() => {
+        renderResult();
+        showScreen("result");
+      }, 700);
+    }
+  }, 260);
+}
+
+function resetDemo() {
+  state.regretCard = "";
+  state.braveSentence = "";
+  state.question = 0;
+  state.answers = [];
+  Object.keys(state.scores).forEach((key) => {
+    state.scores[key] = 0;
+  });
+  braveInput.value = "";
+  showScreen("intro");
+}
+
+function drawWrappedText(ctx, text, x, y, maxWidth, lineHeight) {
+  const chars = [...text];
+  let line = "";
+  let currentY = y;
+  chars.forEach((char) => {
+    const next = line + char;
+    if (ctx.measureText(next).width > maxWidth && line) {
+      ctx.fillText(line, x, currentY);
+      line = char;
+      currentY += lineHeight;
+    } else {
+      line = next;
+    }
+  });
+  if (line) ctx.fillText(line, x, currentY);
+  return currentY + lineHeight;
+}
+
+function roundRect(ctx, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + width, y, x + width, y + height, r);
+  ctx.arcTo(x + width, y + height, x, y + height, r);
+  ctx.arcTo(x, y + height, x, y, r);
+  ctx.arcTo(x, y, x + width, y, r);
+  ctx.closePath();
+}
+
+function fillRoundRect(ctx, x, y, width, height, radius, fill) {
+  roundRect(ctx, x, y, width, height, radius);
+  ctx.fillStyle = fill;
+  ctx.fill();
+}
+
+function siteUrl() {
+  return location.origin || "https://parallelife.origo-cn.com";
+}
+
+async function saveResultImage() {
+  const canvas = document.querySelector("#shareCanvas");
+  canvas.width = 900;
+  canvas.height = 2140;
+  const ctx = canvas.getContext("2d");
+  const width = canvas.width;
+  const height = canvas.height;
+  const margin = 56;
+  const paperX = 34;
+  const paperY = 34;
+  const paperW = width - paperX * 2;
+  const paperH = height - paperY * 2;
+
+  ctx.fillStyle = "#090b08";
+  ctx.fillRect(0, 0, width, height);
+  ctx.fillStyle = "#e9dec4";
+  ctx.fillRect(paperX, paperY, paperW, paperH);
+
+  ctx.strokeStyle = "rgba(23,23,20,.12)";
+  ctx.lineWidth = 1;
+  for (let x = paperX; x <= paperX + paperW; x += 24) {
+    ctx.beginPath();
+    ctx.moveTo(x, paperY);
+    ctx.lineTo(x, paperY + paperH);
+    ctx.stroke();
+  }
+  for (let y = paperY; y <= paperY + paperH; y += 24) {
+    ctx.beginPath();
+    ctx.moveTo(paperX, y);
+    ctx.lineTo(paperX + paperW, y);
+    ctx.stroke();
+  }
+
+  ctx.strokeStyle = "rgba(23,23,20,.35)";
+  ctx.lineWidth = 3;
+  ctx.strokeRect(paperX + 18, paperY + 18, paperW - 36, paperH - 36);
+  ctx.setLineDash([8, 8]);
+  ctx.strokeStyle = "rgba(23,23,20,.24)";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(paperX + 34, paperY + 34, paperW - 68, paperH - 68);
+  ctx.setLineDash([]);
+
+  const fontFamily = '"PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif';
+  const font = (weight, size) => {
+    ctx.font = `${weight} ${size}px ${fontFamily}`;
+  };
+  const strokeBox = (x, y, boxW, boxH, radius, color = "rgba(23,23,20,.22)", dash = []) => {
+    ctx.save();
+    ctx.setLineDash(dash);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    roundRect(ctx, x, y, boxW, boxH, radius);
+    ctx.stroke();
+    ctx.restore();
+  };
+  const drawLabel = (text, x, y, color = "rgba(23,23,20,.58)") => {
+    ctx.fillStyle = color;
+    font(900, 24);
+    ctx.fillText(text, x, y);
+  };
+
+  ctx.fillStyle = "#171714";
+  font(900, 23);
+  ctx.fillText("PL-404 / 当前人生未找到说明书", margin, 94);
+  ctx.fillText(location.host || "parallelife.origo-cn.com", width - 370, 94);
+
+  ctx.fillStyle = "#171714";
+  ctx.fillRect(margin, 122, 230, 48);
+  ctx.fillStyle = "#e9dec4";
+  for (let x = margin + 5; x < margin + 222; x += 12) {
+    ctx.fillRect(x, 122, x % 3 ? 4 : 8, 48);
+  }
+
+  ctx.fillStyle = "#ff5a4d";
+  font(900, 25);
+  ctx.save();
+  ctx.translate(width - 210, 134);
+  ctx.rotate(0.12);
+  ctx.strokeStyle = "#ff5a4d";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(0, 0, 132, 48);
+  ctx.fillText("异常副本", 12, 34);
+  ctx.restore();
+
+  ctx.fillStyle = "#171714";
+  font(950, 72);
+  ctx.fillText("平行人生档案", margin, 250);
+  ctx.fillRect(margin, 280, width - margin * 2, 10);
+
+  let y = 316;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 172, 14, "#171714");
+  ctx.fillStyle = "rgba(181,255,98,.08)";
+  font(950, 76);
+  ctx.fillText("ROUTE", width - 310, y + 156);
+  ctx.fillStyle = "#b5ff62";
+  font(900, 24);
+  ctx.fillText("平行路线", margin + 26, y + 40);
+  ctx.fillStyle = "#f4eddc";
+  font(950, 52);
+  ctx.fillText(state.result.routeName, margin + 26, y + 92);
+  ctx.fillStyle = "rgba(236,227,209,.72)";
+  font(900, 24);
+  drawWrappedText(ctx, state.result.routeHint, margin + 26, y + 128, width - margin * 2 - 214, 31);
+  ctx.strokeStyle = "#ff5a4d";
+  ctx.lineWidth = 4;
+  ctx.strokeRect(width - 204, y + 38, 138, 88);
+  ctx.fillStyle = "#ff5a4d";
+  font(900, 19);
+  ctx.fillText("发生率", width - 178, y + 66);
+  ctx.fillStyle = "#fff3df";
+  font(950, 44);
+  ctx.fillText(`${state.result.routeProbability}%`, width - 184, y + 112);
+
+  y += 204;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 230, 12, "rgba(255,90,77,.12)");
+  ctx.fillStyle = "#ff5a4d";
+  ctx.fillRect(margin, y, 8, 230);
+  drawLabel("未发生记录", margin + 26, y + 42);
+  ctx.fillStyle = "#171714";
+  font(900, 34);
+  drawWrappedText(ctx, state.result.recordText, margin + 26, y + 92, width - margin * 2 - 56, 43);
+
+  y += 260;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 206, 12, "rgba(181,255,98,.14)");
+  strokeBox(margin, y, width - margin * 2, 206, 12, "rgba(23,23,20,.28)", [8, 8]);
+  ctx.fillStyle = "#ff5a4d";
+  font(900, 24);
+  ctx.fillText("路线偏移原因", margin + 24, y + 40);
+  ctx.fillStyle = "#171714";
+  font(900, 30);
+  drawWrappedText(ctx, state.result.routeReason, margin + 24, y + 84, width - margin * 2 - 48, 39);
+
+  y += 236;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 236, 14, "#171714");
+  ctx.fillStyle = "rgba(236,227,209,.08)";
+  font(950, 78);
+  ctx.fillText("SPECIES", margin + 340, y + 200);
+  ctx.fillStyle = "#b5ff62";
+  font(900, 28);
+  ctx.fillText("人生物种", margin + 28, y + 46);
+  font(950, 74);
+  ctx.fillText(state.result.speciesName, margin + 28, y + 126);
+  ctx.fillStyle = "rgba(236,227,209,.72)";
+  font(900, 31);
+  drawWrappedText(ctx, state.result.speciesDesc, margin + 28, y + 178, width - margin * 2 - 56, 38);
+
+  y += 268;
+  const halfGap = 18;
+  const halfW = (width - margin * 2 - halfGap) / 2;
+  fillRoundRect(ctx, margin, y, halfW, 154, 10, "rgba(255,255,255,.24)");
+  strokeBox(margin, y, halfW, 154, 10);
+  fillRoundRect(ctx, margin + halfW + halfGap, y, halfW, 154, 10, "rgba(255,255,255,.24)");
+  strokeBox(margin + halfW + halfGap, y, halfW, 154, 10);
+  drawLabel("平行身份", margin + 22, y + 42);
+  drawLabel("当前状态", margin + halfW + halfGap + 22, y + 42);
+  ctx.fillStyle = "#171714";
+  font(900, 27);
+  drawWrappedText(ctx, state.result.identity, margin + 22, y + 86, halfW - 44, 34);
+  drawWrappedText(ctx, state.result.currentState, margin + halfW + halfGap + 22, y + 86, halfW - 44, 34);
+
+  y += 186;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 332, 10, "rgba(255,255,255,.24)");
+  strokeBox(margin, y, width - margin * 2, 332, 10, "rgba(23,23,20,.18)");
+  let chartY = y + 56;
+  state.result.chart.forEach((item) => {
+    ctx.fillStyle = "#171714";
+    font(900, 30);
+    ctx.fillText(item.label, margin + 28, chartY);
+    ctx.fillStyle = "rgba(23,23,20,.12)";
+    ctx.fillRect(margin + 170, chartY - 23, 500, 19);
+    ctx.strokeStyle = "rgba(23,23,20,.12)";
+    ctx.lineWidth = 1;
+    for (let tick = 0; tick <= 500; tick += 50) {
+      ctx.beginPath();
+      ctx.moveTo(margin + 170 + tick, chartY - 25);
+      ctx.lineTo(margin + 170 + tick, chartY - 2);
+      ctx.stroke();
+    }
+    const grad = ctx.createLinearGradient(margin + 170, chartY - 23, margin + 670, chartY - 23);
+    grad.addColorStop(0, "#171714");
+    grad.addColorStop(1, "#ff5a4d");
+    ctx.fillStyle = grad;
+    ctx.fillRect(margin + 170, chartY - 23, 500 * (item.value / 100), 19);
+    ctx.fillStyle = "#171714";
+    font(900, 30);
+    ctx.fillText(String(item.value), width - 112, chartY);
+    chartY += 56;
+  });
+
+  y += 366;
+  fillRoundRect(ctx, margin, y, width - margin * 2, 170, 12, "#171714");
+  ctx.fillStyle = "#b5ff62";
+  ctx.fillRect(margin, y, 10, 170);
+  ctx.fillStyle = "#f4eddc";
+  font(950, 39);
+  drawWrappedText(ctx, state.result.topDimensionText, margin + 34, y + 58, width - margin * 2 - 68, 48);
+
+  y += 218;
+  ctx.fillStyle = "#171714";
+  font(950, 38);
+  ctx.fillText("测测你是哪种平行人生物种", margin, y);
+  ctx.fillStyle = "rgba(23,23,20,.62)";
+  font(900, 25);
+  ctx.fillText(location.host || "parallelife.origo-cn.com", margin, y + 44);
+
+  const link = document.createElement("a");
+  link.download = `平行人生档案-${Date.now()}.png`;
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
+
+function isWeChatBrowser() {
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
+
+function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    return navigator.clipboard.writeText(text);
+  }
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.style.position = "fixed";
+  input.style.opacity = "0";
+  document.body.appendChild(input);
+  input.focus();
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+  return Promise.resolve();
+}
+
+async function shareResult() {
+  const url = siteUrl();
+  const text = [
+    `我的平行人生档案：${state.result.speciesName}`,
+    `平行路线：${state.result.routeName}（发生率 ${state.result.routeProbability}%）`,
+    `未发生记录：${state.result.recordText}`,
+    `路线偏移原因：${state.result.routeReason}`,
+    `平行身份：${state.result.identity}`,
+    `当前状态：${state.result.currentState}`,
+    `维度判定：${state.result.topDimensionText}`,
+    "",
+    "测测另一条时间线里的你：",
+    url,
+  ].join("\n");
+  const button = document.querySelector("#shareBtn");
+  const oldText = button.textContent;
+
+  if (navigator.share && !isWeChatBrowser()) {
+    try {
+      await navigator.share({
+        title: "平行人生档案",
+        text,
+        url,
+      });
+      return;
+    } catch (error) {
+      // Fall through to copy when system share is cancelled or unsupported.
+    }
+  }
+
+  await copyText(text);
+  button.textContent = isWeChatBrowser() ? "链接已复制，点右上角甩" : "链接已复制，去甩";
+  setTimeout(() => {
+    button.textContent = oldText;
+  }, 1800);
+}
+
+function setFeedbackScale(type, value) {
+  feedbackState[type] = value;
+  document.querySelectorAll(`[data-feedback-scale="${type}"] button`).forEach((button) => {
+    button.classList.toggle("selected", button.dataset.value === value);
+  });
+}
+
+function toggleFeedbackChip(group, value, button) {
+  if (group === "share") {
+    feedbackState.share = value;
+    document.querySelectorAll(`[data-feedback-chips="${group}"] button`).forEach((node) => {
+      node.classList.toggle("selected", node === button);
+    });
+    return;
+  }
+
+  const list = feedbackState[group];
+  const nextSelected = !list.includes(value);
+  feedbackState[group] = nextSelected ? [...list, value] : list.filter((item) => item !== value);
+  button.classList.toggle("selected", nextSelected);
+
+  if (group === "improve" && value === "other") {
+    feedbackImproveOther.classList.toggle("show", nextSelected);
+    if (nextSelected) feedbackImproveOther.focus();
+  }
+}
+
+function openFeedbackModal() {
+  trackEvent("feedback_open", {
+    species: state.result?.speciesName,
+    deviation: state.result?.deviation,
+    destination: "native_feedback_page",
+  });
+  showScreen("feedback");
+}
+
+function closeFeedbackModal() {
+  feedbackModal.classList.remove("open");
+  feedbackModal.setAttribute("aria-hidden", "true");
+}
+
+function submitFeedback() {
+  const submitButton = document.querySelector("#feedbackSubmit");
+  const comment = feedbackComment.value.trim();
+  const improveOther = feedbackImproveOther.value.trim();
+
+  trackEvent("feedback_submit", {
+    idea_score: Number(feedbackState.idea || 0),
+    version_score: Number(feedbackState.version || 0),
+    improve_parts: feedbackState.improve.join(",") || "none",
+    has_improve_other: improveOther ? "yes" : "no",
+    improve_other_length: improveOther.length,
+    share_intent: feedbackState.share || "not_selected",
+    has_comment: comment ? "yes" : "no",
+    comment_length: comment.length,
+    species: state.result?.speciesName,
+    deviation: state.result?.deviation,
+  });
+
+  submitButton.textContent = "已提交，系统开始反省";
+  feedbackDone.classList.add("show");
+  localStorage.setItem("parallelife_feedback_submitted", "true");
+  setTimeout(closeFeedbackModal, 900);
+}
+
+function setPageFeedbackScore(type, value) {
+  pageFeedbackState[type] = value;
+  document.querySelectorAll(`[data-page-score="${type}"] button`).forEach((button) => {
+    button.classList.toggle("selected", button.dataset.value === value);
+  });
+}
+
+function togglePageFeedbackPick(group, value, button) {
+  if (group === "match") {
+    pageFeedbackState.match = value;
+    document.querySelectorAll(`[data-page-picks="${group}"] button`).forEach((node) => {
+      node.classList.toggle("selected", node === button);
+    });
+    return;
+  }
+
+  if (group === "share") {
+    pageFeedbackState.share = value;
+    document.querySelectorAll(`[data-page-picks="${group}"] button`).forEach((node) => {
+      node.classList.toggle("selected", node === button);
+    });
+    return;
+  }
+
+  const list = pageFeedbackState[group];
+  const nextSelected = !list.includes(value);
+  pageFeedbackState[group] = nextSelected ? [...list, value] : list.filter((item) => item !== value);
+  button.classList.toggle("selected", nextSelected);
+}
+
+function queueFeedbackPayload(payload) {
+  const stored = JSON.parse(localStorage.getItem("parallelife_feedback_queue") || "[]");
+  stored.push(payload);
+  localStorage.setItem("parallelife_feedback_queue", JSON.stringify(stored.slice(-20)));
+  return stored.slice(-20).length;
+}
+
+function showFeedbackDebug(details) {
+  if (!feedbackDebug) return;
+  feedbackDebug.textContent = Object.entries(details)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join("\n");
+  feedbackDebug.classList.add("show");
+}
+
+function sendFeedbackByPixel(payload) {
+  return new Promise((resolve, reject) => {
+    if (!feedbackEndpoint) {
+      reject(new Error("feedback endpoint not configured"));
+      return;
+    }
+
+    let url;
+    try {
+      url = new URL(feedbackEndpoint);
+    } catch (error) {
+      reject(error);
+      return;
+    }
+
+    url.pathname = url.pathname.replace(/\/feedback$/, "/collect");
+    if (!url.pathname.endsWith("/collect")) url.pathname = "/collect";
+    url.searchParams.set("d", JSON.stringify(payload));
+    url.searchParams.set("t", String(Date.now()));
+
+    if (url.toString().length > 7600) {
+      reject(new Error("feedback payload too large for pixel fallback"));
+      return;
+    }
+
+    const image = new Image();
+    const finish = () => resolve(url.toString());
+    image.onload = finish;
+    image.onerror = finish;
+    image.src = url.toString();
+    window.setTimeout(finish, 3000);
+  });
+}
+
+async function submitPageFeedback() {
+  const submitButton = document.querySelector("#pageFeedbackSubmit");
+  const messageText = pageFeedbackMessage.value.trim();
+  const startedAt = Date.now();
+  const payload = {
+    submitted_at: new Date().toISOString(),
+    match_level: pageFeedbackState.match || "",
+    idea_score: Number(pageFeedbackState.idea || 0),
+    version_score: Number(pageFeedbackState.version || 0),
+    improve_parts: pageFeedbackState.improve,
+    share_intent: pageFeedbackState.share || "",
+    message_text: messageText,
+    species: state.result?.speciesName || "",
+    deviation: state.result?.deviation || 0,
+    record_card: state.regretCard || "",
+    delete_choice: state.answers[3] || "",
+    stuck_choice: state.answers[4] || "",
+    page_url: location.href,
+  };
+
+  trackEvent("feedback_submit", {
+    match_level: payload.match_level || "not_selected",
+    idea_score: payload.idea_score,
+    version_score: payload.version_score,
+    improve_parts: payload.improve_parts.join(",") || "none",
+    share_intent: payload.share_intent || "not_selected",
+    has_message_text: messageText ? "yes" : "no",
+    message_text_length: messageText.length,
+    species: payload.species,
+    deviation: payload.deviation,
+    destination: feedbackEndpoint ? "api" : "local_queue",
+  });
+
+  submitButton.disabled = true;
+  submitButton.textContent = "正在写入异常日志";
+
+  let timeout;
+  try {
+    if (!feedbackEndpoint) throw new Error("feedback endpoint not configured");
+    const controller = new AbortController();
+    timeout = window.setTimeout(() => controller.abort(), 8000);
+    const response = await fetch(feedbackEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    const responseText = await response.text();
+    let responseData = {};
+    try {
+      responseData = JSON.parse(responseText);
+    } catch (error) {
+      responseData = { raw: responseText.slice(0, 120) };
+    }
+    if (!response.ok || responseData.ok === false) {
+      throw new Error(`feedback endpoint ${response.status} ${responseData.error || ""}`.trim());
+    }
+    pageFeedbackDone.textContent = "收到，已经写入反馈后台。";
+    submitButton.textContent = "已写入后台，系统开始反省";
+    showFeedbackDebug({
+      status: "api_success",
+      endpoint: feedbackEndpoint,
+      http: response.status,
+      id: responseData.id || "none",
+      ms: Date.now() - startedAt,
+      url: location.href,
+    });
+  } catch (error) {
+    const queueLength = queueFeedbackPayload(payload);
+    pageFeedbackDone.textContent = "后台没连上，已先存在本地待接线队列。";
+    submitButton.textContent = "后台没连上，先记在本地";
+    const debugDetails = {
+      status: "api_failed_local_queue",
+      endpoint: feedbackEndpoint || "empty",
+      error_name: error.name || "Error",
+      error_message: error.message || String(error),
+      ms: Date.now() - startedAt,
+      queue_length: queueLength,
+      url: location.href,
+    };
+
+    try {
+      const fallbackUrl = await sendFeedbackByPixel(payload);
+      pageFeedbackDone.textContent = "主通道超时，已尝试备用通道。";
+      submitButton.textContent = "已走备用通道，系统记仇中";
+      showFeedbackDebug({
+        ...debugDetails,
+        fallback: "pixel_collect_attempted",
+        collect_url_length: fallbackUrl.length,
+      });
+    } catch (fallbackError) {
+      showFeedbackDebug({
+        ...debugDetails,
+        fallback: "pixel_collect_failed",
+        fallback_error: fallbackError.message || String(fallbackError),
+      });
+    }
+  } finally {
+    if (timeout) window.clearTimeout(timeout);
+  }
+
+  pageFeedbackDone.classList.add("show");
+  localStorage.setItem("parallelife_feedback_submitted", "true");
+}
+
+document.querySelector("#startBtn").addEventListener("click", () => {
+  trackEvent("start_test");
+  showScreen("cards");
+});
+document.querySelector("#submitInputBtn").addEventListener("click", () => {
+  const value = braveInput.value.trim();
+  if (!value) {
+    braveInput.placeholder = "先随便写点什么，系统等不及了";
+    braveInput.focus();
+    return;
+  }
+  state.braveSentence = value;
+  trackEvent("submit_open_input", {
+    regret_card: state.regretCard,
+    input_length: value.length,
+  });
+  runLoading();
+});
+document.querySelector("#restartBtn").addEventListener("click", resetDemo);
+document.querySelector("#saveBtn").addEventListener("click", () => {
+  trackEvent("save_result", {
+    species: state.result?.speciesName,
+  });
+  saveResultImage();
+});
+document.querySelector("#shareBtn")?.addEventListener("click", () => {
+  trackEvent("share_click", {
+    species: state.result?.speciesName,
+  });
+  shareResult();
+});
+document.querySelector("#feedbackBtn").addEventListener("click", openFeedbackModal);
+document.querySelector("#feedbackClose").addEventListener("click", closeFeedbackModal);
+feedbackModal.addEventListener("click", (event) => {
+  if (event.target === feedbackModal) closeFeedbackModal();
+});
+document.querySelectorAll("[data-feedback-scale] button").forEach((button) => {
+  button.addEventListener("click", () => {
+    setFeedbackScale(button.parentElement.dataset.feedbackScale, button.dataset.value);
+  });
+});
+document.querySelectorAll("[data-feedback-chips] button").forEach((button) => {
+  button.addEventListener("click", () => {
+    toggleFeedbackChip(button.parentElement.dataset.feedbackChips, button.dataset.value, button);
+  });
+});
+document.querySelector("#feedbackSubmit").addEventListener("click", submitFeedback);
+document.querySelector("#feedbackBackBtn").addEventListener("click", () => showScreen("result"));
+document.querySelectorAll("[data-page-score] button").forEach((button) => {
+  button.addEventListener("click", () => {
+    setPageFeedbackScore(button.parentElement.dataset.pageScore, button.dataset.value);
+  });
+});
+document.querySelectorAll("[data-page-picks] button").forEach((button) => {
+  button.addEventListener("click", () => {
+    togglePageFeedbackPick(button.parentElement.dataset.pagePicks, button.dataset.value, button);
+  });
+});
+document.querySelector("#pageFeedbackSubmit").addEventListener("click", submitPageFeedback);
+
+regretGrid.addEventListener("click", (event) => {
+  const card = event.target.closest(".event-card");
+  if (!card) return;
+  state.regretCard = card.dataset.card;
+  Object.keys(state.scores).forEach((key) => {
+    state.scores[key] = 0;
+  });
+  addScores(regretCardScores[state.regretCard] || {});
+  trackEvent("select_regret_card", {
+    regret_card: state.regretCard,
+  });
+  [...regretGrid.children].forEach((node) => node.classList.remove("selected"));
+  card.classList.add("selected");
+  setTimeout(() => {
+    renderQuestion();
+    showScreen("quiz");
+  }, 220);
+});
+
+optionList.addEventListener("click", (event) => {
+  const button = event.target.closest(".option-btn");
+  if (!button) return;
+  const question = questions[state.question];
+  const option = question.options[Number(button.dataset.option)];
+  trackEvent("answer_question", {
+    question_index: state.question + 1,
+    question_text: question.text,
+    option_label: option.label,
+  });
+  button.classList.add("selected");
+  setTimeout(() => goNextQuestion(Number(button.dataset.option)), 170);
+});
+
+renderRegretCards();
+
+</script>
+  </body>
+</html>
